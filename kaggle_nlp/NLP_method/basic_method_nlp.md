@@ -48,7 +48,7 @@ if we have huge data set this is going to be slow, we should use word2vec instea
 $1/2$ $a/bdsfojdf$
 
 $1/2$ $a/{alkjvoer}$
-
+<img src="https://render.githubusercontent.com/render/math?math=a/{alkjvoer}">
 ```math
 1/2 
 a/bdsfojdf
