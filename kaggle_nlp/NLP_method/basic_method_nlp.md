@@ -60,11 +60,11 @@ s1: good boy    s2: good girl    s3: boy girl good
 
 ## inverse document frequency (IDF) log({# of sentence}/{# of sentence contain target words})
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Logarithme_neperien.svg/1200px-Logarithme_neperien.svg.png" width="500">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Logarithme_neperien.svg/1200px-Logarithme_neperien.svg.png" width="200">
 
 we can think as more sentence contain the word, less important the word is
 |words|IDF|
-|==|==|
+|--|--|
 |good|ln(3/3)=0|
 |boy|ln(3/2)|
 |git|ln(3/2)|
