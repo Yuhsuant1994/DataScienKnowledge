@@ -63,11 +63,11 @@ s1: good boy    s2: good girl    s3: boy girl good
 
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Logarithme_neperien.svg/1200px-Logarithme_neperien.svg.png" width="500">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Logarithme_neperien.svg/1200px-Logarithme_neperien.svg.png" hight="100">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Logarithme_neperien.svg/1200px-Logarithme_neperien.svg.png" hight="50">
 
 
 <img src="https://www.quentinfily.fr/wp-content/uploads/2015/11/td-idf-graphic.png" width="500">
-<img src="https://www.quentinfily.fr/wp-content/uploads/2015/11/td-idf-graphic.png" hight="100">
+<img src="https://www.quentinfily.fr/wp-content/uploads/2015/11/td-idf-graphic.png" hight="50">
 
 
 ![!image](https://www.quentinfily.fr/wp-content/uploads/2015/11/td-idf-graphic.png | width=500)
