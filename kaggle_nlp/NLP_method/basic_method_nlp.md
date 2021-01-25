@@ -43,7 +43,7 @@ if we have huge data set this is going to be slow, we should use word2vec instea
 
 # TF-IDF
 
-![!image](https://www.quentinfily.fr/wp-content/uploads/2015/11/td-idf-graphic.png | width=100)
+![!image](https://www.quentinfily.fr/wp-content/uploads/2015/11/td-idf-graphic.png | width=500)
 
 ## Term Frequency (TF):{# of target of words in sentence}/{# of words in sentence}
 
