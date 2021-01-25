@@ -41,9 +41,9 @@ the independent feature of BOW.
 every word has the same weight, no feature (word) is more important. TFIDF is mainly to solve this disadvantage,
 if we have huge data set this is going to be slow, we should use word2vec instead.
 
-#TF-IDF
+# TF-IDF
 
-![!image](https://www.quentinfily.fr/wp-content/uploads/2015/11/td-idf-graphic.png)
+![!image](https://www.quentinfily.fr/wp-content/uploads/2015/11/td-idf-graphic.png | width=100)
 
 ## Term Frequency (TF):{# of target of words in sentence}/{# of words in sentence}
 
@@ -59,10 +59,10 @@ s1: good boy    s2: good girl    s3: boy girl good
 |girl|0|1/2|1/3|
 
 ## inverse document frequency (IDF) log({# of sentence}/{# of sentence contain target words})
-![!image](https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Logarithme_neperien.svg/1200px-Logarithme_neperien.svg.png)
+![!image](https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Logarithme_neperien.svg/1200px-Logarithme_neperien.svg.png | width=100)
 we can think as more sentence contain the word, less important the word is
 |words|IDF|
-|--|--|
+|==|==|
 |good|ln(3/3)=0|
 |boy|ln(3/2)|
 |git|ln(3/2)|
