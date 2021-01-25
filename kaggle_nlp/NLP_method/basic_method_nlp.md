@@ -43,9 +43,11 @@ if we have huge data set this is going to be slow, we should use word2vec instea
 
 # TF-IDF
 
+to fix the disadvantage of BOW
+
 <img src="https://www.quentinfily.fr/wp-content/uploads/2015/11/td-idf-graphic.png" width="500">
 
-## Term Frequency (TF):{# of target of words in sentence}/{# of words in sentence}
+* Term Frequency (TF):{# of target of words in sentence}/{# of words in sentence}
 
 we can think of how important is this word in this sentence
 
@@ -58,7 +60,7 @@ s1: good boy    s2: good girl    s3: boy girl good
 |boy|1/2|0|1/3|
 |girl|0|1/2|1/3|
 
-## inverse document frequency (IDF) log({# of sentence}/{# of sentence contain target words})
+* inverse document frequency (IDF) log({# of sentence}/{# of sentence contain target words})
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Logarithme_neperien.svg/1200px-Logarithme_neperien.svg.png" width="300">
 
@@ -68,5 +70,19 @@ we can think as more sentence contain the word, less important the word is
 |good|ln(3/3)=0|
 |boy|ln(3/2)|
 |git|ln(3/2)|
+
+* final vector (need to reverse)
+
+here we can see in s1 boy is more important than good, since good is in every sentences so it is not important.
+ Then we use f1-f3 dependent feature to train output independant feature
+
+| |f1 <br> good|f2 <br> boy|f3 <br> girl|output <br> feature|
+|--|--|--|--|--|
+|s1|0|1/2 * log(3/2)|0||
+|s2|0|0|1/2 * log(3/2)||
+|s3|0|1/3 * log(3/2)|1/3 * log(3/2)||
+
+
+
 
 
