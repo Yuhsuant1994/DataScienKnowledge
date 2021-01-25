@@ -43,15 +43,28 @@ if we have huge data set this is going to be slow, we should use word2vec instea
 
 #TF-IDF
 
-* Term Frequency (TF): $1/2$ $a/bdsfojdf$ $1/2$ $a/{alkjvoer}$
+[image](https://www.quentinfily.fr/wp-content/uploads/2015/11/td-idf-graphic.png)
 
-$1/2$ $a/bdsfojdf$
+## Term Frequency (TF):{# of target of words in sentence}/{# of words in sentence}
 
-$1/2$ $a/{alkjvoer}$
-<img src="https://render.githubusercontent.com/render/math?math=a/{alkjvoer}">
-```math
-1/2 
-a/bdsfojdf
-a/{bdsfojdf}
+we can think of how important is this word in this sentence
 
 ```
+s1: good boy    s2: good girl    s3: boy girl good
+```
+|  |s1|s2|s3|
+|--|--|--|--|
+|good|1/2|1/2|1/3|
+|boy|1/2|0|1/3|
+|girl|0|1/2|1/3|
+
+## inverse document frequency (IDF) log({# of sentence}/{# of sentence contain target words})
+[image](https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Logarithme_neperien.svg/1200px-Logarithme_neperien.svg.png)
+we can think as more sentence contain the word, less important the word is
+|words|IDF|
+|--|--|
+|good|ln(3/3)=0|
+|boy|ln(3/2)|
+|git|ln(3/2)|
+
+
