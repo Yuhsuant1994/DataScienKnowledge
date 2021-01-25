@@ -1,5 +1,4 @@
 import nltk
-nltk.download()
 
 paragraph="""
 Natural language processing (NLP) is a subfield of linguistics, computer science, 
@@ -10,5 +9,15 @@ of documents, including the contextual nuances of the language within them. The 
 can then accurately extract information and insights contained in the documents as well as 
 categorize and organize the documents themselves.
 """
-print(nltk.sent_tokenize(paragraph))
-print('hi')
+
+
+
+#clean text 
+import re
+from nltk.corpus import stopwords
+from nltk.stem.porter import PorterStemmer
+from nltk.stem import WordNetLemmatizer
+
+ps=PorterStemmer()
+wordnet=WordNetLemmatizer()
+sentences=(nltk.sent_tokenize(paragraph))
