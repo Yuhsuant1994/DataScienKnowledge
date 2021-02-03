@@ -1,30 +1,18 @@
+[NLP EXAMPLE](nlp_simple_example.py)
+
+[Youtube review channel](https://www.youtube.com/playlist?list=PLZoTAELRMXVMdJ5sqbCK2LiM0HhQVWNzm)
+
+
 # Bag of words
-[EXAMPLE](bow_simple_example.py)
 
-To start BOW we define the vocabulary we want to learn
-
-|vocabulary|
-|---|
-|dataframe|
-|colors|
-|columns|
-|plot|
-|graph|
-
-then we need to define some label to the topic
-|possible labels|
-|---|
-|pandas|
-|keras|
-|matplotlib|
-
-input: how to **plot** **dataframe** bar **graph**
--> [1 0 0 1 0 1 0 0 0 0]  (nothing to do with the orders)
-
-prediction: **pandas** keras **matplotlib** -> [1 0 1]
-
-inputs to prediction: after it become an array we can simpily do calculations inputs*weights+bias
-
+```
+s1: good boy    s2: good girl    s3: boy girl good
+```
+|  |good|boy|girl|
+|--|--|--|--|
+|s1|1|1|0|
+|s2|1|0|1|
+|s3|1|1|1|
 
 ## BOW to apply
 
@@ -47,7 +35,8 @@ to fix the disadvantage of BOW
 
 <img src="https://www.quentinfily.fr/wp-content/uploads/2015/11/td-idf-graphic.png" width="500">
 
-* Term Frequency (TF):{# of target of words in sentence}/{# of words in sentence}
+* Term Frequency (TF):
+`num of target of words in sentence/number of words in sentence`
 
 we can think of how important is this word in this sentence
 
@@ -60,11 +49,14 @@ s1: good boy    s2: good girl    s3: boy girl good
 |boy|1/2|0|1/3|
 |girl|0|1/2|1/3|
 
-* inverse document frequency (IDF) log({# of sentence}/{# of sentence contain target words})
+* inverse document frequency (IDF) 
+
+`log(number of sentence/ number of sentence contain target words)`
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Logarithme_neperien.svg/1200px-Logarithme_neperien.svg.png" width="300">
 
 we can think as more sentence contain the word, less important the word is
+
 |words|IDF|
 |--|--|
 |good|ln(3/3)=0|
@@ -82,7 +74,12 @@ here we can see in s1 boy is more important than good, since good is in every se
 |s2|0|0|1/2 * log(3/2)||
 |s3|0|1/3 * log(3/2)|1/3 * log(3/2)||
 
+# Word2vec
 
+to solve the above 2 method since words has no semantic informaiton (relation in meaning between words), as King-Man+Woman=Queen.
+ those this can lead to over fitting
+
+each word is represented as a vector of 32 or more dimension instead of a single number
 
 
 
