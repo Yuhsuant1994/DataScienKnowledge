@@ -27,3 +27,15 @@
 * [log](WORK/src/log.py): script logging functions
 * [ml performance functions](WORK/src/performance_functions.py): to check the performance of the ML model
 * [string process](WORK/src/string_process.py): functions used to process strings
+
+
+---------------------
+# DS Topic:
+
+1. NLP
+
+# Statistic sources
+
+1. [Basic Youtube channel ](https://www.youtube.com/channel/UCtYLUTtgS3k1Fg4y5tAhLbw)
+
+# Worked projects and Knowledge 
