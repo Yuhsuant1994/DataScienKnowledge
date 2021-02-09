@@ -1,6 +1,7 @@
 # NEXT 
 
 * lasso L1 L2 organize
+* SKLEARN library documentation.
 
 # work 
 

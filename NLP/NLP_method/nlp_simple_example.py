@@ -70,12 +70,17 @@ for i in range(len(sentences)):
 """
 BOW
 """
-cv=CountVectorizer(max_features=1500)
-X=cv.fit_transform(sentences).toarray()
+cv = CountVectorizer(max_features=1500)
+X = cv.fit_transform(sentences).toarray()
 #this library contain BOW
 
 """
+TF-ITF
 """
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+cv = TfidfVectorizer()
+X = cv.fit_transform(sentences).toarray()
 
 
 """
