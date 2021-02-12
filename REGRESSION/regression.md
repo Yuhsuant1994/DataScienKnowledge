@@ -9,10 +9,9 @@
 
 ## Multiple regression, 
 
-(need to check more)
 same as linear regression, but use X, X1 to predict Y
 
-### Compare linear / multiple
+* Compare linear / multiple
 
 it can tell us do we need a more complex model to predict Y or we can just go with simple model
 
@@ -26,7 +25,9 @@ logistic regression doesn't have the same concept of residual as linear regressi
 squares and it cannot calculate R2. instead it can use maximum likelihood (idea is to calculate the likelihood 
 for all dots and multiply all of them together to get the likelihood of one line)
 
-# Maximum likelihood VS R2 goodness of fit....
+# (TBF) Maximum likelihood VS R2 goodness of fit....
 
 difference between linear regression and logistic regression
 
+# (TBF) lost function: 
+![photo](REGRESSION/linear_regression.png)
