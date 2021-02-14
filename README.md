@@ -1,6 +1,7 @@
 # DS Topic:
 
-1. NLP
+1. [NLP](NLP)
+2. [REGRESSION](REGRESSION)
 
 # Statistic sources
 
@@ -8,4 +9,10 @@
 
 # Worked projects and Knowledge 
 
-[link](WORK)
+[Link to Full directory](WORK)
+
+* Elastic Search
+* Marketing Segementation logic
+* Team Library
+* Web browsing recommend engine
+* [Other small functional code](WORK/src)
