@@ -26,13 +26,17 @@ S3_CLIENT = boto3.client('s3')
 
 
 def fromS3_to_redshift(target_table, file_name):
-    query = f"""
-        copy {SCHEMA}.{target_table}
+    cur = connection_mdp.cursor()
+    query_transfer = f"""
+        copy {SCHEMA}.{target_table} --(optional {columns})
         FROM  's3://{BUCKETNAME}/folder1/{file_name}'
-        iam_role 'arn:aws:iam::123456:role/{iam_role}' region 'eu-west-1' CSV ;
-        commit;"""
-    curser_exe(query)
-
+        iam_role 'arn:aws:iam::123456:role/{iam_role}' 
+        DELIMITER ',' 
+        IGNOREHEADER 1;
+        """
+    cur.execute(query_transfer)
+    connection_mdp.commit()
+    cur.close()
 ```
 * file download
 ```python

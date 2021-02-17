@@ -1,3 +1,7 @@
+# Projects related code
+
+see the md files above
+
 # Often used small functions
 
 * [log](src/log.py): script logging functions
@@ -6,8 +10,3 @@
 * many frequently used small code: aws related code, commandnote, os_function, sqlnote
 (more to add)
 
-# Projects related code
-
-* Elastic search (TBF)
-* Team Library
-* Web browsing recommend engine
