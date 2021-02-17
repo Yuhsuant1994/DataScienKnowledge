@@ -1,7 +1,18 @@
-To identify the unknown leads from different platform form, social media... crosscheck with the database existing data to identify part of the unknown leads to known leads. Therefore some automation process can be set up immidiately.
+Cross functional communications and brainstorming to come up with projects. 
+Providing customized email, leads info for cusotmer or customer services to have 
+better personalized communication. According to the data of the customer,
+and its behaviors. (all kinds of possible combination)
 
-PAIN POINT: unknown leads is always hard to track and to contact, identifing them could take up to one full day or even more for one employee to do the manual search.
+Then create data models for tracking projects performance.
 
-IMPACT: Reduce work hour of one salesperson from one day to 8s. A start point for the company to start treating the “unknown leads.”
+SUBPROJECTS:
 
-TECHNOLOGY USED: Python, Elastic Search, Redshift
+* Identifying leads by tracking behavior after email sending
+* Usage email send after purchased
+* Promoting cordless tool
+* Promoting dust solutions
+* Promoting insert
+* Promoting online account
+
+
+TECHNOLOGY USED: Python, Elastic Search, Azure MSSQL, Redshift, Google analytics
