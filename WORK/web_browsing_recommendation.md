@@ -7,6 +7,6 @@ Sales person for better communication.
 
 IMPACT: Help generating **50K+ CHF per month.**
 
-TECHNOLOGY USED: Python, Azure MSSQL, Google Analytics, ML models
+TECHNOLOGY USED: Python, Azure MSSQL, Google Analytics, ML models (boosting trees)
 
 # 2. Process and tech note

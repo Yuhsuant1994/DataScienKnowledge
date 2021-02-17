@@ -8,7 +8,7 @@ Project explanation and some notes.
 * (TBF)Build Email Events Model (Multisource ETL) [description](WORK/email_events_model.md)
 * (TBF)Web browsing recommendation engine [description](WORK/web_browsing_recommendation.md)
 * (TBF)Data quality and result QA (Unittest) [description](WORK/team_unittest.md)
-* (signal quality clustering?)
+* (TBF)Signal quality clustering [description](WORK/signal_quality.md)
 * [Other small functional code](WORK/src)
 
 # DS Topic:
