@@ -2,7 +2,7 @@
 
 Project explanation and some notes.
 
-* (TBF)Unknown Customer Form Elastic Search Engine [description](WORK/customer_es_engine.md)
+* Unknown Customer Form Elastic Search Engine [description](WORK/customer_es_engine.md)
 * (TBF)Global Marketing Segmentation logics [description](WORK/segmentation_logic.md)
 * (TBF)Team Python Library [description](WORK/team_lib.md)
 * (TBF)Build Email Events Model (Multisource ETL) [description](WORK/email_events_model.md)
@@ -16,7 +16,7 @@ Project explanation and some notes.
 1. [(TBF)NLP](NLP)
 2. [(TBF)REGRESSION](REGRESSION)
 
-# Statistic sources
+# Learning ources
 
-1. [Basic Youtube channel ](https://www.youtube.com/channel/UCtYLUTtgS3k1Fg4y5tAhLbw)
-
+1. [Basic statistic Youtube channel ](https://www.youtube.com/channel/UCtYLUTtgS3k1Fg4y5tAhLbw)
+2. [DS knowledge Youtube channel](https://www.youtube.com/user/krishnaik06)
