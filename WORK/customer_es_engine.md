@@ -17,11 +17,11 @@ TECHNOLOGY USED: Python, Elastic Search, Redshift
 
 # 2. Process and tech note
 
-Step 1: etl process 
+**Step 1: etl process**
 
 weekly Downloading data and merging /cleaning the data
 
-Step 2: set up elastic search
+**Step 2: set up elastic search**
 
 * remove old index (if not it would just append, depend on the needs) 
 ```
@@ -146,6 +146,6 @@ if __name__ == '__main__':
 
 ```
 
-Step 3: Automated process search
+**Step 3: Automated process search**
 
-Daily run on the search when there's new leads
+Daily run on the search when there's new identified leads
