@@ -15,10 +15,21 @@ TECHNOLOGY USED: Python, RESTful API, Redshift
 
 **Step 1: get event from hotspot**
 
+Hubspot we are extracting data with RESTful API
+
 <details>
-  <summary>Click to see the code...</summary>
+  <summary>Click to see the exemple code...</summary>
 
 ```python
+from src.credentials import APIKEY
+from src.connection import open_cnxn_dl, open_cnxn_mdp
+import pandas as pd
+import numpy as np
+from datetime import datetime, timedelta
+import json
+from pandas.io.json import json_normalize
+import requests
+
 def get_new_email_events():
     cnxn = open_cnxn_mdp()
     START_TIME = str(int(pd.read_sql("""
@@ -29,7 +40,7 @@ def get_new_email_events():
     cnxn.close()
     df_events = pd.DataFrame()
     failed = pd.DataFrame(columns=['Failed index', 'cid', 'first'])
-    URL = f'https://api.hubapi.com/email/public/v1/events?hapikey={hapikey}'\
+    URL = f'https://api.hubapi.com/email/public/v1/events?APIKEY={APIKEY}'\
         + f'&startTimestamp={START_TIME}&limit=1000'
     nb_try = 1
     NEED_COL_FULL = ['appName', 'emailCampaignId', 'recipient',
@@ -93,3 +104,99 @@ def get_new_email_events():
 ```
 
 </details>
+
+**Step 2: get event from SalesForce**
+
+SalesForce we have the daily extract send to S3, we would then process that zip file.
+<details>
+  <summary>Click to see the exemple code...</summary>
+
+```python
+from auto_etl import functions, connections
+import pandas as pd
+import io
+import zipfile
+
+
+def get_mc_events_contact():
+    max_time_query = f"""
+    SELECT max(event_time)
+    FROM {SCHEMA}.email_events
+    WHERE appname = 'Marketing Cloud'
+    """
+    MAX_TIME = pd.read_sql(max_time_query, CONNECTION)
+    MAX_TIME = int(MAX_TIME['max'][0])
+
+    events = pd.DataFrame()
+    OBJ = INPUT_BUCKET.Object(LATEST_FILE)
+    with io.BytesIO(OBJ.get()["Body"].read()) as tf:
+        tf.seek(0)
+        with zipfile.ZipFile(tf, mode='r') as zipf:
+            for subfile in zipf.namelist():
+                if subfile not in ['Complaints.csv', 'Conversions.csv']:
+                    df_current = pd.read_csv(zipf.open(subfile),
+                                             encoding=file_encoding,
+                                             dtype=str)
+                    if df_current.shape[0] > 0:
+                        df_current['event_time'] = (pd.to_datetime(df_current['EventDate'])
+                                                    .astype(int)/1000000)\
+                                                    .astype(int)
+                        eventtype = df_current.EventType.unique()[0]
+                        events = pd.concat([events, df_current], sort=False)
+    events = events[events.event_time > MAX_TIME].astype(str)
+    if events.shape[0] > 0:
+        events.to_csv(os.path.join(DATAPATH, 'events_raw.csv'), index=False)
+        INCREMENT_PATH = f'email_sensitivity/{TODAY}/'
+        OUTPUT_BUCKET.upload_file(os.path.join(DATAPATH, 'events_raw.csv'),
+                                  INCREMENT_PATH + f'events_raw_{TODAY}.csv')
+        events['events_key'] = ''
+        for col in ['SendID', 'ListID', 'BatchID', 'SubscriberID']:
+            events['events_key'] = events['events_key'] + events[col]
+        events_key = tuple(events.events_key)
+        if len(events_key) == 1:
+            events_key = str(events_key).replace(',', '')
+        # get related sendlog
+        query_sendlog = f"""
+            SELECT distinct jobid +'_' +listid +'_' +
+                            batchid +'_' +subid as events_key,
+            EXTRACT('epoch' FROM (CAST(senddate as timestamp))) as sent_time,
+            REPLACE(CAST(CAST(senddate as date) as varchar)
+                    ,'-','') as sent_date, *
+            FROM {SCHEMA}.email_events_sendlog
+            WHERE events_key in {events_key}
+        """
+        email_info = pd.read_sql(query_sendlog, CONNECTION)
+        events = events.merge(email_info, how='left', on='events_key')
+        events.loc[events.sent_time > 0, 'sent_time'] = (events.loc[events.sent_time > 0, 'sent_time']*1000)\
+                                                        .astype(int).astype(str)
+        events['event_time'] = events['event_time'].astype(str)
+        events['email_id'] = events['SendID'].astype(str)
+        events['event_type'] = events['EventType'].str.upper()
+        events['event_date'] = pd.to_datetime(events['EventDate'])\
+                               .dt.strftime("%Y%m%d")
+        events['email_name'] = events['emailcode']
+        events['appname'] = 'Marketing Cloud'
+        events['sys_update_date'] = TODAY
+        events['Alias'] = events['Alias'].astype(str)\
+                                         .fillna('')\
+                                         .str.replace('nan', '')
+        events = events.rename(columns={
+                                        'sapcontactid': 'contact_num',
+                                        'market': 'sales_org',
+                                        'EmailAddress': 'recipient',
+                                        'Alias': 'alias'}).fillna('')
+        events = add_email_cate(add_email_campagin(events))
+        mc_event = events[EVENT_COL]
+    else:
+        mc_event = pd.DataFrame(columns=EVENT_COL)
+    return mc_event
+
+```
+
+</details>
+
+**Step 3: merge two files result to our database**
+
+However this is a processed result, we still have to create 
+another table or save the file for the raw data, just incase the process has problems
+

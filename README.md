@@ -6,7 +6,7 @@
 2. [Data quality and result QA (Unittest)](WORK/team_unittest.md)
 3. [(TBF) Global Marketing Segmentation logics](WORK/segmentation_logic.md)
 4. [(TBF) Team Python Library](WORK/team_lib.md)
-5. [(TBF) Build Email Events Model (Multisource ETL)](WORK/email_events_model.md)
+5. [Build Email Events Model (Multisource ETL)](WORK/email_events_model.md)
 6. [(TBF) Web browsing recommendation engine](WORK/web_browsing_recommendation.md)
 7. [(TBF) Signal quality clustering](WORK/signal_quality.md)
 8. [Other small functional code](WORK/src)
