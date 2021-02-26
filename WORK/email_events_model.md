@@ -16,7 +16,7 @@ TECHNOLOGY USED: Python, RESTful API, Redshift
 **Step 1: get event from hotspot**
 
 <details>
-  <summary>Click to expand!</summary>
+  <summary>Click to see the code...</summary>
 
 ```python
 def get_new_email_events():

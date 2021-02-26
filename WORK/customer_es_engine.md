@@ -24,10 +24,12 @@ weekly Downloading data and merging /cleaning the data
 **Step 2: set up elastic search**
 
 * remove old index (if not it would just append, depend on the needs) 
+
 ```
 es = Elasticsearch(hosts=self.es_hosts)
 es.indices.delete(self.es_index)
 ```
+
 * Setup index 
     
     mapping properties:
@@ -35,6 +37,11 @@ es.indices.delete(self.es_index)
     * columns for searching `"last_name": {"type":"text", "analyzer": "autocomplete", "ignore_malformed": True, "search_analyzer": "standard"}` 
 
 * Post Data
+
+to put the built index into elastic search engine
+
+<details>
+  <summary>Click to see the code...</summary>
 
 ```python
 def postData(self, es_instance):
@@ -73,7 +80,12 @@ def postData(self, es_instance):
 
 ```
 
+<details>
+
+
 * Query for search result (within multimatch)
+
+query the result for each entry
 
     **fuzziness:** would help for fuzzy text.
 
@@ -85,6 +97,10 @@ def postData(self, es_instance):
     (this case is using most_fields)
 
     **fields:** this we can pass the fields we want to search on
+
+<details>
+  <summary>Click to see the code...</summary>
+
 ```python
 def _process_results(selfquery, max_results):
     result_df = pd.DataFrame()
@@ -207,6 +223,8 @@ def getContact(self, userQuery):
     return res
 
 ```
+
+<details>
 
 **Step 3: Automated process search**
 
