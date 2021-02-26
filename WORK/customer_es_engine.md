@@ -17,26 +17,26 @@ TECHNOLOGY USED: Python, Elastic Search, Redshift
 
 # 2. Process and tech note
 
-**Step 1: etl process**
+After ETL process weekly Downloading data and merging /cleaning the data set up elastic search
 
-weekly Downloading data and merging /cleaning the data
-
-**Step 2: set up elastic search**
-
-* remove old index (if not it would just append, depend on the needs) 
+**Step 1: remove old index (if not it would just append, depend on the needs)**
 
 ```
 es = Elasticsearch(hosts=self.es_hosts)
-es.indices.delete(self.es_index)
+if es.indices.exists(index=es_index1):
+    es.indices.delete(es_index1)
+    log.info(f'{i} index deleted')
+else:
+    log.info(f'{i} no index deleted, continue...')
 ```
 
-* Setup index 
+**Step 2: Setup index**
     
     mapping properties:
     * columns as key not for searching `"col": {'type': 'keyword', "ignore_malformed": True}`
     * columns for searching `"last_name": {"type":"text", "analyzer": "autocomplete", "ignore_malformed": True, "search_analyzer": "standard"}` 
 
-* Post Data
+**Step 3: Post Data**
 
 to put the built index into elastic search engine
 
@@ -83,7 +83,7 @@ def postData(self, es_instance):
 </details>
 
 
-* Query for search result (within multimatch)
+**Step 4: Query for search result (within multimatch)**
 
 query the result for each entry
 
@@ -171,64 +171,56 @@ Daily run on the search when there's new identified leads
   <summary>Click to see the code...</summary>
 
 ``` python
-def _process_results(selfquery, max_results):
-    result_df = pd.DataFrame()
-    res = self.getContact(query)
-    for item in range(min(max_resultslen(res['hits']['hits']))):
-        each = res['hits']['hits'][item]
-        current_df = pd.DataFrame([each['_source']])
-        current_df['score'] = each['_score']
-        result_df = pd.concat([result_df, current_df], sort=False)
-    if result_df.shape[0] > 0:
-        result_df = result_df.reset_index(drop=True)
-        for col in result_df.columns:
-            if isinstance(result_df[col][0]str):
-                result_df[col] = result_df[col].str.replace('notfound')
-    else:
-        result_df = pd.DataFrame()
-    return result_df.reset_index(drop=True)
-
-
-def getContact(self, userQuery):
-    index_name = self.es_index
-    res = Elasticsearch(hosts=self.es_hosts).search(
-            index=index_name,
-            size=50,
-            body={
-                "query":
-                    {
-                        "multi_match":
-                            {
-                                "fields": self.search_fields,
-                                "query": userQuery,
-                                "type": "most_fields",
-                                "fuzziness": 1.0
-                                # "tie_breaker": 0.3
-                                # "operator": "or"
-                            }
-                    },
-
-                "highlight":
-                    {
-                        "type": "unified",
-                        "order": "score",
-                        "fields":
-                            {
-                                "cust_num": {},
-                                "contact_num": {},
-                                "person_num": {},
-                                "first_name": {},
-                                "last_name": {},
-                                "cust_name": {},
-                                "tax_number_1": {},
-                                "mobile_num": {},
-                                "tel_num": {},
-                                "email": {}
-                            }
-                    }
-                })
-    return res
-
+from datetime import datetime
+from config.log import *
+from src import etl, es_cont
+import argparse
+from project_settings import *
+import os
+from elasticsearch import Elasticsearch, helpers
+from elasticsearch import RequestsHttpConnection, helpers
+import shutil
+def execute(process, connection, country, data_download_path, ref_file_name,
+            es_hosts, es_index, remove_billing, remove_hilti):
+    if process == 'etl':
+        data_object = etl.Data(connection, country, data_download_path,
+                               ref_file_name, remove_billing, remove_hilti)
+        data_object._download_data()
+        data_object._get_merged_df()
+    if process == 'es_setup':
+        for current_country in list(country):
+            log.info(f'starte setting up elastic search for contsct in {current_country}')
+            es_cont.ContactElasticsearch(
+                        current_country, es_hosts, es_index,
+                        data_download_path, ref_file_name
+                        )._setup_es()
+            log.info(f'elastic search for {current_country} contact has been updated...')
+    elif process == 'all':
+        log.info('all process will be performed: etl, set_es')
+        log.info('start etl process')
+        data_object = etl.Data(connection, country, data_download_path,
+                               ref_file_name, remove_billing, remove_hilti)
+        data_object._download_data()
+        data_object._get_merged_df()
+        for current_country in list(country):
+            log.info(f'starte setting up elastic search for contsct in {current_country}')
+            es_cont.ContactElasticsearch(
+                        current_country, es_hosts, es_index,
+                        data_download_path, ref_file_name
+                        )._setup_es()
+            log.info(f'elastic search for {current_country} contact has been updated...')
+        # remove files
+        for folder in [output_path, data_download_path]:
+            for filename in os.listdir(folder):
+                file_path = os.path.join(folder, filename)
+                if os.path.isfile(file_path):
+                    os.unlink(file_path)
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Elastic Search: contact info')
+    parser.add_argument('--process', type=str, help='options: etl, set_es, all')
+    args = vars(parser.parse_args())
+    execute(args['process'], CONNECTION, COUNTRY, DOWNLOAD_PATH, FILE_NAME,
+            ES_HOST, ES_INDEX, REMOVE_BILLING, REMOVE_HILTI)
 ```
 
 </details>
