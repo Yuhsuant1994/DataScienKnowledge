@@ -14,8 +14,8 @@ TECHNOLOGY USED: Python, RESTful API, Redshift
 # 2. Process and tech note
 
 **Step 1: get event from hotspot**
-<details>
 
+<details>
   <summary>Click to expand!</summary>
 
 ```python
