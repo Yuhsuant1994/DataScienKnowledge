@@ -80,7 +80,7 @@ def postData(self, es_instance):
 
 ```
 
-<details>
+</details>
 
 
 * Query for search result (within multimatch)
@@ -161,7 +161,14 @@ def getContact(self, userQuery):
     return res
 
 ```
+</details>
+
 # 3. Calling the process:
+
+Daily run on the search when there's new identified leads
+
+<details>
+  <summary>Click to see the code...</summary>
 
 ``` python
 def _process_results(selfquery, max_results):
@@ -224,8 +231,5 @@ def getContact(self, userQuery):
 
 ```
 
-<details>
+</details>
 
-**Step 3: Automated process search**
-
-Daily run on the search when there's new identified leads
