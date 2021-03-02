@@ -46,13 +46,13 @@ to put the built index into elastic search engine
 ```python
 def postData(self, es_instance):
     df_cleaned = pd.read_csv(self.ref_df_path, dtype=str)
-    df_cleaned = df_cleaned[df_cleaned.sales_org == self.current_sales_org]
+    df_cleaned = df_cleaned[df_cleaned.country == self.current_country]
 
     # make sure there's no empty (used not found instead)
     for col in df_cleaned.columns:
         df_cleaned.loc[(df_cleaned[col] == ''), col] = 'notfound'
         df_cleaned[col].fillna('notfound', inplace=True)
-    df_cleaned = df_cleaned.drop_duplicates().drop(columns='sales_org')
+    df_cleaned = df_cleaned.drop_duplicates().drop(columns='country')
     len_df_cleaned = df_cleaned.shape[0]
     log.info(f'need to post {len_df_cleaned} rows of data')
 
@@ -87,16 +87,16 @@ def postData(self, es_instance):
 
 query the result for each entry
 
-    **fuzziness:** would help for fuzzy text.
+**fuzziness:** would help for fuzzy text.
 
-    **multi_match type** [(doc)](https://www.elastic.co/guide/en/elasticsearch/reference/6.8/query-dsl-multi-match-query.html), 
+**multi_match type** [(doc)](https://www.elastic.co/guide/en/elasticsearch/reference/6.8/query-dsl-multi-match-query.html), 
 
-    * best_fields:  Finds documents which match any field (good case for product searching, 
-    index can be tool key, tool name, tool type etc...)
-    * most_fields: Finds documents which match any field and combines the _score from each field. 
-    (this case is using most_fields)
+* best_fields:  Finds documents which match any field (good case for product searching, 
+index can be tool key, tool name, tool type etc...)
+* most_fields: Finds documents which match any field and combines the _score from each field. 
+(this case is using most_fields)
 
-    **fields:** this we can pass the fields we want to search on
+**fields:** this we can pass the fields we want to search on
 
 <details>
   <summary>Click to see the code...</summary>
@@ -146,12 +146,9 @@ def getContact(self, userQuery):
                         "fields":
                             {
                                 "cust_num": {},
-                                "contact_num": {},
-                                "person_num": {},
                                 "first_name": {},
                                 "last_name": {},
                                 "cust_name": {},
-                                "tax_number_1": {},
                                 "mobile_num": {},
                                 "tel_num": {},
                                 "email": {}
@@ -181,10 +178,10 @@ from elasticsearch import Elasticsearch, helpers
 from elasticsearch import RequestsHttpConnection, helpers
 import shutil
 def execute(process, connection, country, data_download_path, ref_file_name,
-            es_hosts, es_index, remove_billing, remove_hilti):
+            es_hosts, es_index, remove_billing, remove_company_email):
     if process == 'etl':
         data_object = etl.Data(connection, country, data_download_path,
-                               ref_file_name, remove_billing, remove_hilti)
+                               ref_file_name, remove_billing, remove_company_email)
         data_object._download_data()
         data_object._get_merged_df()
     if process == 'es_setup':
@@ -199,7 +196,7 @@ def execute(process, connection, country, data_download_path, ref_file_name,
         log.info('all process will be performed: etl, set_es')
         log.info('start etl process')
         data_object = etl.Data(connection, country, data_download_path,
-                               ref_file_name, remove_billing, remove_hilti)
+                               ref_file_name, remove_billing, remove_company_email)
         data_object._download_data()
         data_object._get_merged_df()
         for current_country in list(country):
@@ -220,7 +217,7 @@ if __name__ == '__main__':
     parser.add_argument('--process', type=str, help='options: etl, set_es, all')
     args = vars(parser.parse_args())
     execute(args['process'], CONNECTION, COUNTRY, DOWNLOAD_PATH, FILE_NAME,
-            ES_HOST, ES_INDEX, REMOVE_BILLING, REMOVE_HILTI)
+            ES_HOST, ES_INDEX, REMOVE_BILLING, REMOVE_COMPANY_EMAIL)
 ```
 
 </details>

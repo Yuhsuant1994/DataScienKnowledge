@@ -30,11 +30,11 @@ import json
 from pandas.io.json import json_normalize
 import requests
 
-def get_new_email_events():
+def get_new_emails():
     cnxn = open_cnxn_mdp()
     START_TIME = str(int(pd.read_sql("""
         SELECT max(event_time)
-        FROM email_events
+        FROM emails
         WHERE source='Hubspot'
         """, cnxn)['max'][0]) + 1)
     cnxn.close()
@@ -121,8 +121,8 @@ import zipfile
 def get_mc_events_contact():
     max_time_query = f"""
     SELECT max(event_time)
-    FROM {SCHEMA}.email_events
-    WHERE appname = 'Marketing Cloud'
+    FROM {SCHEMA}.emails
+    WHERE appname = 'SF'
     """
     MAX_TIME = pd.read_sql(max_time_query, CONNECTION)
     MAX_TIME = int(MAX_TIME['max'][0])
@@ -162,7 +162,7 @@ def get_mc_events_contact():
             EXTRACT('epoch' FROM (CAST(senddate as timestamp))) as sent_time,
             REPLACE(CAST(CAST(senddate as date) as varchar)
                     ,'-','') as sent_date, *
-            FROM {SCHEMA}.email_events_sendlog
+            FROM {SCHEMA}.emails_sendlog
             WHERE events_key in {events_key}
         """
         email_info = pd.read_sql(query_sendlog, CONNECTION)
