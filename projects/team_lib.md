@@ -11,4 +11,4 @@ IMPACT: Helped to slash team's yearly "Duplication of effort" survey score **fro
 
 TECHNOLOGY USED: Python, Azure MSSQL, Redshift
 
-# 2. Process and tech note
+

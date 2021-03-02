@@ -6,4 +6,3 @@ that would lead to miss catching the data.
 TECHNOLOGY USED: 
 Python, ML models (Clustering)
 
-# 2. Process and tech note

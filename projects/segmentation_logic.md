@@ -18,5 +18,3 @@ SUBPROJECTS:
 
 
 TECHNOLOGY USED: Python, Elastic Search, Azure MSSQL, Redshift, Google analytics
-
-# 2. Process and tech note

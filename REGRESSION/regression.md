@@ -19,7 +19,7 @@ it can tell us do we need a more complex model to predict Y or we can just go wi
 ## Logistic regression (classification)
 
 Try to predict 1/0, so the curve goes to 0 to 1. therefore after fitting linear regression to have the probability, 
-it needs to fit into the sigmoid functions to have classifier to be 0 or 1. sigmoid fuction: <img src="https://miro.medium.com/max/674/0*pvMD0iSS8Mb2zy6W.png" width="100">
+it needs to fit into the **sigmoid** functions to have classifier to be 0 or 1. sigmoid fuction: <img src="https://miro.medium.com/max/674/0*pvMD0iSS8Mb2zy6W.png" width="100">
 
 logistic regression doesn't have the same concept of residual as linear regression, so it cannot use least 
 squares and it cannot calculate R2. instead it can use maximum likelihood (idea is to calculate the likelihood 

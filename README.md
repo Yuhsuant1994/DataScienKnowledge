@@ -2,13 +2,13 @@
 
 **Project explanation and some modified tech notes:**
 
-1. [Unknown Customer Form Elastic Search Engine](projects/customer_es_engine.md)
-2. [Data quality and result QA (Unittest)](projects/team_unittest.md)
-3. [(TBF) Global Marketing Segmentation logics](projects/segmentation_logic.md)
-4. [(TBF) Team Python Library](projects/team_lib.md)
-5. [Build Email Events Model (Multisource ETL)](projects/email_events_model.md)
-6. [(TBF) Web browsing recommendation engine](projects/web_browsing_recommendation.md)
-7. [(TBF) Signal quality clustering](projects/signal_quality.md)
+1. [Unknown Customer Form Elastic Search Engine](projects/customer_es_engine.md): with some example codes
+2. [Data quality and result QA (Unittest)](projects/team_unittest.md): with some example codes
+3. [Global Marketing Segmentation logics](projects/segmentation_logic.md)
+4. [Team Python Library](projects/team_lib.md)
+5. [Build Email Events Model (Multisource ETL)](projects/email_events_model.md): with some example codes
+6. [Web browsing recommendation engine](projects/web_browsing_recommendation.md)
+7. [Signal quality clustering](projects/signal_quality.md)
 8. [Other small functional code](projects/src)
 
 **Project overall covered responsibilities**
@@ -22,8 +22,8 @@
 
 # DS Topic:
 
-1. [(TBF)NLP](NLP)
-2. [(TBF)REGRESSION](REGRESSION)
+1. [NLP](NLP)
+2. [REGRESSION](REGRESSION)
 3. [General Concept](tmp/general_ds_concept.md)
 
 # Learning ources
