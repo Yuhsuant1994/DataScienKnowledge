@@ -55,7 +55,7 @@ d -> delete
 
 # crontab
 
-file name file.cron
+set scheduler to run script, file name file.cron, [file setup ref](http://www.scrounge.org/linux/cron.html)
 
 ```
 crontab -l  list of jobs
@@ -63,3 +63,14 @@ crontab -r  reomve all jobs
 crontab file.cron  add jobs
 ```
 
+[min] [hour] [day of month] [month] [day of week] [program to be run]
+
+ex:
+```
+--Will run /usr/bin/foo every 15 minutes on every hour, day-of-month, month, and day-of-week. In other words, it will run every 15 minutes for as long as the machine it running.
+0,15,30,45 * * * * /usr/bin/foo
+```
+
+# other
+
+`curl -X GET "localhost:9200/"`: send an HRRP request to port 9200

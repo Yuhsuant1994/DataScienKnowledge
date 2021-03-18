@@ -56,7 +56,7 @@ def postData(self, es_instance):
     len_df_cleaned = df_cleaned.shape[0]
     log.info(f'need to post {len_df_cleaned} rows of data')
 
-    # append only partially ate once
+    # append only partially at once
     subsize = 30000
     start = 0
     end = subsize
@@ -233,4 +233,5 @@ please refer to another note of mine [link](https://github.com/Yuhsuant1994/Data
 [Setup documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup.html), 
 [Viedo setup Elasticsearch Engine on linux](https://www.youtube.com/watch?v=63nS1Z-pIfI), 
 [Blog setup Elasticsearch Engine on linux](https://linuxize.com/post/how-to-install-elasticsearch-on-centos-7/)
+
 In my case, I set up an ec2 linux instance (virtual machine) on AWS, then setup the engine on top.

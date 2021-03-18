@@ -30,4 +30,4 @@ for all dots and multiply all of them together to get the likelihood of one line
 difference between linear regression and logistic regression
 
 # (TBF) lost function: 
-![photo](REGRESSION/linear_regression.png)
+![photo](linear_regression.png)
