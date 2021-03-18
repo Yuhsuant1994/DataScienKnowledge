@@ -222,3 +222,15 @@ if __name__ == '__main__':
 
 </details>
 
+# 4. Other reference
+
+## 4.1. What is Elasticsearch?
+
+please refer to another note of mine
+
+## 4.2. How to setup elasticsearch?
+
+[Setup documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup.html), 
+[Viedo setup Elasticsearch Engine on linux](https://www.youtube.com/watch?v=63nS1Z-pIfI), 
+[Blog setup Elasticsearch Engine on linux](https://linuxize.com/post/how-to-install-elasticsearch-on-centos-7/)
+In my case, I set up an ec2 linux instance (virtual machine) on AWS, then setup the engine on top.

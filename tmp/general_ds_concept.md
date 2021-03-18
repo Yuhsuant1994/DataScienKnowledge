@@ -19,6 +19,7 @@ input -> f linear -> probabilities -> f sigmoid -> value close to 1/0 -> thresho
 
 
 tbf
+# OCR
 # (TBF) Maximum likelihood VS R2 goodness of fit....
 How do you find RMSE and MSE in a linear regression model
 
@@ -31,9 +32,9 @@ difference between linear regression and logistic regression
 # timeseries
 How can a time-series data be declared as stationery?
 
-#SVM
+# SVM
 
-#ANOVA
+# ANOVA
 
 # overfitting
 
@@ -56,7 +57,7 @@ How can a time-series data be declared as stationery?
 # recommendation engine
 
 
-25. Which of the following machine learning algorithms can be used for inputting missing values of both categorical and continuous variables?
+* Which of the following machine learning algorithms can be used for inputting missing values of both categorical and continuous variables?
 K-means clustering
 Linear regression 
 K-NN (k-nearest neighbor)
