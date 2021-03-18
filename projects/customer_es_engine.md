@@ -226,7 +226,7 @@ if __name__ == '__main__':
 
 ## 4.1. What is Elasticsearch?
 
-please refer to another note of mine
+please refer to another note of mine [link](https://github.com/Yuhsuant1994/DataScienKnowledge/blob/master/DataEngineer/elasticsearch.md)
 
 ## 4.2. How to setup elasticsearch?
 
