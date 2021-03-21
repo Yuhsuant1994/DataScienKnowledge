@@ -86,8 +86,8 @@ def get_new_emails():
             }, ignore_index=True)
         nb_try = nb_try + 1
     if df_events.shape[0] > 0:
-        df_events['sent_date'] = convert_time(df_events, 'sentBy.created')
-        df_events['event_date'] = convert_time(df_events, 'created')
+        df_events['sdate'] = convert_time(df_events, 'sentBy.created')
+        df_events['edate'] = convert_time(df_events, 'created')
         df_events['emailCampaignId'] = df_events['emailCampaignId'].fillna(0)\
                                             .astype(int).astype(str)\
                                             .str.pad(width=8, side='left',
@@ -118,7 +118,7 @@ import io
 import zipfile
 
 
-def get_mc_events_contact():
+def get_contact_event():
     max_time_query = f"""
     SELECT max(event_time)
     FROM {SCHEMA}.emails
@@ -138,7 +138,7 @@ def get_mc_events_contact():
                                              encoding=file_encoding,
                                              dtype=str)
                     if df_current.shape[0] > 0:
-                        df_current['event_time'] = (pd.to_datetime(df_current['EventDate'])
+                        df_current['event_time'] = (pd.to_datetime(df_current['edate'])
                                                     .astype(int)/1000000)\
                                                     .astype(int)
                         eventtype = df_current.EventType.unique()[0]
@@ -146,7 +146,7 @@ def get_mc_events_contact():
     events = events[events.event_time > MAX_TIME].astype(str)
     if events.shape[0] > 0:
         events.to_csv(os.path.join(DATAPATH, 'events_raw.csv'), index=False)
-        INCREMENT_PATH = f'email_sensitivity/{TODAY}/'
+        INCREMENT_PATH = f'path/{TODAY}/'
         OUTPUT_BUCKET.upload_file(os.path.join(DATAPATH, 'events_raw.csv'),
                                   INCREMENT_PATH + f'events_raw_{TODAY}.csv')
         events['events_key'] = ''
@@ -155,33 +155,32 @@ def get_mc_events_contact():
         events_key = tuple(events.events_key)
         if len(events_key) == 1:
             events_key = str(events_key).replace(',', '')
-        # get related sendlog
-        query_sendlog = f"""
-            SELECT distinct jobid +'_' +listid +'_' +
-                            batchid +'_' +subid as events_key,
-            EXTRACT('epoch' FROM (CAST(senddate as timestamp))) as sent_time,
-            REPLACE(CAST(CAST(senddate as date) as varchar)
-                    ,'-','') as sent_date, *
-            FROM {SCHEMA}.emails_sendlog
+        # get related slog
+        query_slog = f"""
+            SELECT distinct jid +'_' +lid +'_' as events_key,
+            EXTRACT('epoch' FROM (CAST(sdate as timestamp))) as sent_time,
+            REPLACE(CAST(CAST(sdate as date) as varchar)
+                    ,'-','') as sdate, *
+            FROM {SCHEMA}.emails_slog
             WHERE events_key in {events_key}
         """
-        email_info = pd.read_sql(query_sendlog, CONNECTION)
+        email_info = pd.read_sql(query_slog, CONNECTION)
         events = events.merge(email_info, how='left', on='events_key')
         events.loc[events.sent_time > 0, 'sent_time'] = (events.loc[events.sent_time > 0, 'sent_time']*1000)\
                                                         .astype(int).astype(str)
         events['event_time'] = events['event_time'].astype(str)
-        events['email_id'] = events['SendID'].astype(str)
+        events['emailid'] = events['SID'].astype(str)
         events['event_type'] = events['EventType'].str.upper()
-        events['event_date'] = pd.to_datetime(events['EventDate'])\
+        events['edate'] = pd.to_datetime(events['edate'])\
                                .dt.strftime("%Y%m%d")
         events['email_name'] = events['emailcode']
         events['appname'] = 'Marketing Cloud'
-        events['sys_update_date'] = TODAY
+        events['updatedate'] = TODAY
         events['Alias'] = events['Alias'].astype(str)\
                                          .fillna('')\
                                          .str.replace('nan', '')
         events = events.rename(columns={
-                                        'sapcontactid': 'contact_num',
+                                        'contactkey': 'contactid',
                                         'market': 'sales_org',
                                         'EmailAddress': 'recipient',
                                         'Alias': 'alias'}).fillna('')

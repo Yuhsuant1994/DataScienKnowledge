@@ -1,15 +1,25 @@
-# Worked projects and Knowledge 
+# DS Topic:
+
+1. [NLP](NLP)
+2. [REGRESSION](REGRESSION)
+3. [DataEngineer](DataEngineer)
+    * [elasticsearch](DataEngineer/elasticsearch.md)
+4. [General Concept](tmp/general_ds_concept.md)
+
+# Projects
+
+## Real projects and Related Knowledge 
 
 **Project explanation and some modified tech notes:**
 
-1. [Unknown Customer Form Elastic Search Engine](projects/customer_es_engine.md): with some example codes
-2. [Data quality and result QA (Unittest)](projects/team_unittest.md): with some example codes
-3. [Global Marketing Segmentation logics](projects/segmentation_logic.md)
-4. [Team Python Library](projects/team_lib.md)
-5. [Build Email Events Model (Multisource ETL)](projects/email_events_model.md): with some example codes
-6. [Web browsing recommendation engine](projects/web_browsing_recommendation.md)
-7. [Signal quality clustering](projects/signal_quality.md)
-8. [Other small functional code](projects/src)
+1. [Unknown Customer Form Elastic Search Engine](RealProject/customer_es_engine.md): with some example codes
+2. [Data quality and result QA (Unittest)](RealProject/team_unittest.md): with some example codes
+3. [Global Marketing Segmentation logics](RealProject/segmentation_logic.md)
+4. [Team Python Library](RealProject/team_lib.md)
+5. [Build Email Events Model (Multisource ETL)](RealProject/email_events_model.md): with some example codes
+6. [Web browsing recommendation engine](RealProject/web_browsing_recommendation.md)
+7. [Signal quality clustering](RealProject/signal_quality.md)
+8. [Other small functional code](RealProject/src)
 
 **Project overall covered responsibilities**
 * Project definition setup with different stakeholders
@@ -20,13 +30,7 @@
 * Code automation, cross team testing, production
 * Continuous observation / feedback improvement cycle (Cross functional communication with different teams)
 
-# DS Topic:
 
-1. [NLP](NLP)
-2. [REGRESSION](REGRESSION)
-3. [DataEngineer](DataEngineer)
-    * [elasticsearch](DataEngineer/elasticsearch.md)
-4. [General Concept](tmp/general_ds_concept.md)
 
 # Learning ources
 
