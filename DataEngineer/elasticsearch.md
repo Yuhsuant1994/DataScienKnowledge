@@ -28,11 +28,11 @@ datastore)
 * Query: we can query, and multi match query on selected columns with implementation of fuzzyness as well
 * Filter: We can set filters to make it match fater
 
-# why is it fast?
+## why is it fast?
 
 The core of high speed is derived from parallel computing and inverted index.
 
-## Four Nouns of elastic search
+**Four Nouns of elastic search**
 * **Cluster**: A single cluster consists of multiple nodes.
 * **Node**: Simply put, Node means the number of Elasticsearch process. You could activate more than one Elasticsearch process, in this way, you created multiple nodes. However, we usually deploy different nodes on different machine. It will make our service more available.
 * **Shard**s: An unbreakable entity in Elasticsearch. The actual data unit in disk.
