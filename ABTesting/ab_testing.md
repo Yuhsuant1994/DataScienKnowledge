@@ -1,7 +1,9 @@
 *below info are the extract from multiple 
 references sources, mainly serve as my own knowledge note*
 
-Related side project analyzing A/B testing result: [Decrease Early Udacity Course Cancellation]()
+Related side project analyzing A/B testing result: [Decrease Early Udacity Course Cancellation](https://github.com/Yuhsuant1994/DataScienKnowledge/blob/master/SildeProject/UnacityCourseCancelation/UnacityCourseCancelation.py)
+
+Related real projects: [Segmentation projects](../RealProject/src/segmentation_logic.md)
 
 # 1. A/B testing general
 
@@ -58,7 +60,30 @@ time window might be difficult to perform and compare
 
 # step by step note
 
-## step 1: choose a matric
+When someone visit a website, there are multiple actions, when the flow 
+goes closer and closer to the end it would be fewer and fewer person reaching 
+those activities, this is call **customer funnel**.
+
+## step 1: choose a metric
+
+KPI to track and to compare! often used 
+
+* CTR (click through rate): nb of clicks / nb of page views, click through 
+probability is unique visitor click / unick visiter view, or at lease count
+only once per session.
+
+(we need to always consider standard error)
+
+```
+CTR, measure the usability 
+(usability ex: how often can the user find the button)
+CTP, measure the impact
+(how often the user went to the second page)
+```
+**Hypothesis** : making the change will increase the CTP.
+
+CTR we can see of it as a binomial distribution
+
 ## step 2: review statistic
 ## step 3: design experiment
 ## step 4: analyze result
