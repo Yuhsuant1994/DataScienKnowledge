@@ -13,7 +13,6 @@
 
 	
 * How is logistic regression done?
-[ref md](https://github.com/Yuhsuant1994/DataScienKnowledge/blob/master/REGRESSION/regression.md)
 
 input -> f linear -> probabilities -> f sigmoid -> value close to 1/0 -> threshold classifier -> 1/0
 

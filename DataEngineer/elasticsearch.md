@@ -2,7 +2,7 @@
 *below info are the extract from multiple 
 references sources, mainly serve as my own knowledge note*
 
-[(my related projects)](https://github.com/Yuhsuant1994/DataScienKnowledge/blob/master/RealProject/customer_es_engine.md)
+[(my related projects)](../RealProject/customer_es_engine.md)
 _______________________________
 # Elasticsearch [(wikipedia)](https://en.wikipedia.org/wiki/Elasticsearch#:~:text=Elasticsearch%20is%20a%20search%20engine,and%20schema%2Dfree%20JSON%20documents.)
 

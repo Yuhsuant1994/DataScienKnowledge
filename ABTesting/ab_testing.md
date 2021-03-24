@@ -1,9 +1,9 @@
 *below info are the extract from multiple 
 references sources, mainly serve as my own knowledge note*
 
-Related side project analyzing A/B testing result: [Decrease Early Udacity Course Cancellation](https://github.com/Yuhsuant1994/DataScienKnowledge/blob/master/SildeProject/UnacityCourseCancelation/UnacityCourseCancelation.py)
+Related side project analyzing A/B testing result: [Decrease Early Udacity Course Cancellation](../SildeProject/UnacityCourseCancelation/UnacityCourseCancelation.py)
 
-Related real projects: [Segmentation projects](../RealProject/src/segmentation_logic.md)
+Related real projects: [Segmentation projects](../RealProject/segmentation_logic.md)
 
 # 1. A/B testing general
 
@@ -25,7 +25,8 @@ There often has some concerns:
 
 Why do we need control group? control group would not see any variable changes,
 on the other hand it can be seen as "do nothing". It is to alert **false positive**
-exists within A/B testing. [(see my note for false positive explanation)][https://github.com/Yuhsuant1994/DataScienKnowledge/blob/master/DSConcept/recall_precision.md]
+exists within A/B testing. [(see my note for false positive 
+explanation)](../DSConcept/recall_precision.md)
 
 ## 1.1, Some questions:
 
@@ -66,7 +67,7 @@ those activities, this is call **customer funnel**.
 
 ## step 1: choose a metric
 
-KPI to track and to compare! often used 
+KPI to track and to compare! then to find the distribution of it.
 
 * CTR (click through rate): nb of clicks / nb of page views, click through 
 probability is unique visitor click / unick visiter view, or at lease count
@@ -82,7 +83,11 @@ CTP, measure the impact
 ```
 **Hypothesis** : making the change will increase the CTP.
 
-CTR we can see of it as a binomial distribution
+this case of CTR we can see of it as a binomial distribution 
+[check reason](../Statistic/Distributions.md)
+
+
+
 
 ## step 2: review statistic
 ## step 3: design experiment
