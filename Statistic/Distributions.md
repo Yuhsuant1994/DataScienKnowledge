@@ -1,4 +1,13 @@
-﻿# normal distribution
+﻿# probability distribution fuction
+
+[youtube video](https://www.youtube.com/watch?v=YXLVjCKVP7U)
+
+discrete: probability mass function (PMF)
+continuous: probability density function (PDF)
+
+to cumulative distribution function (CDF)
+
+# normal distribution
 
 we can convert the data to standard normal distribution by this formula: 
 Z = (X-µ) / σ, then 68.3% within 1 σ, (2: 95%, 3: 99.7%)

@@ -81,16 +81,43 @@ CTR, measure the usability
 CTP, measure the impact
 (how often the user went to the second page)
 ```
+
+## step 2: review statistic
+
 **Hypothesis** : making the change will increase the CTP.
 
 this case of CTR we can see of it as a binomial distribution 
 [check reason](../Statistic/Distributions.md)
 
+then we need to check distribution, confidence interval, poor standard error etc...
 
+(pool standard error in binomial: sqrt(P(1-P)*(1/Ncont+1/Nexp)))
 
+* decide practival significance (substantive)
 
-## step 2: review statistic
+meaning how many percentage of difference we see in 2 group that we would 
+consider to take action? (depend on the industry and use cases, 
+in business we can take 2%)
+
 ## step 3: design experiment
+
+size, power of trade off (size would effect the distribution), the bigger of 
+the sample size, the narrower is the distribution.
+
+* alph=P(rejecting null|null true)
+* beta=P(not reject null|null false)
+
+small sample: alpha small unlikely to run bad experiment, beta high when null is false, tend to accept (tend to accpet all null)
+
+1-B: sensitivity of the exiperiment, people often choose 80%
+
+bigger sample: more likely to reject the null when there's the difference (when null is realy false)
+
+decide number of size
+* buildin library
+* lookup answer in the table
+* [online calculator](https://www.evanmiller.org/ab-testing/sample-size.html)
+
 ## step 4: analyze result
 
 

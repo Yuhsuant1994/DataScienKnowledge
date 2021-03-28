@@ -21,29 +21,22 @@ git checkout (change branch)
 
 `python3 run.py`, `cd ..`
 
+## find file
+
 `find -name *.git*`
 
 `find -name *.log -delete`: dangerous delete all find file
 
 `find . -depth -name __pycache__  -execdir rm -rf {} ;` directory
 
-```
-Use -execdir, not -exec
-From man find:
+`grep -rnw '/path/to/somewhere/' -e 'pattern'`
+* -r or -R is recursive,
+* -n is line number, and
+* -w stands for match the whole word.
+* -l (lower-case L) can be added to just give the file name of matching files.
+* -e is the pattern used during the search
 
-There are unavoidable security problems surrounding use of the -exec action; you should use the -execdir option instead.
-
-In most case, -execdir is a drop-in replacement for -exec.
-
-Use +, not ;
-From man find:
-
-As with the -exec action, the `+' form of -execdir will build a command line to process more than one matched file, but any given invocation of command will only list files that exist in the same subdirectory.
-
-When looking for an exact name match, + and ; will do the same, as you cannot have two files with the same name in the same directory, but + will provide increased performance when several files/directories match your find expression within the same directory.
-
-Also, ; needs escaping from your shell, + does not.
-```
+-------------
 
 ```
 vim file.py
