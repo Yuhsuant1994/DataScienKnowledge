@@ -52,6 +52,6 @@ python CausalML / Pylift
 
 # reference
 
-* Gutierrez, Pierre. and G´erardy, Jean-Yves. Causal inference and uplift modelling: A review of the literature. In International Conference on Predictive Applications and APIs, pages 1-13, 2017
+* Gutierrez, Pierre. and GÂ´erardy, Jean-Yves. Causal inference and uplift modelling: A review of the literature. In International Conference on Predictive Applications and APIs, pages 1-13, 2017
 * [uplifted blog](https://humboldt-wi.github.io/blog/research/theses/uplift_modeling_blogpost/)
 
