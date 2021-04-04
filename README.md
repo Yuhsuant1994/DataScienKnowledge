@@ -3,9 +3,15 @@
 1. [NLP](NLP)
 2. [REGRESSION](REGRESSION)
 3. [AB testing](ABTesting)
-3. [DataEngineer](DataEngineer)
-    * [elasticsearch](DataEngineer/elasticsearch.md)
-4. [General Concept](tmp/general_ds_concept.md)
+4. [DataEngineer](DataEngineer)
+   * [elasticsearch](DataEngineer/elasticsearch.md)
+5. [DSConcept](DSConcept)
+   * (TBD) recall precision
+   * (TBD) activation functions (softmax for multiple class probability)
+
+6. [DSTopic](DSTopic)
+   * [Uplift model](DSTopic/upliftmodel.md)
+   * (TBD) imbalanced data
 
 # Projects
 
@@ -20,7 +26,15 @@
 5. [Build Email Events Model (Multisource ETL)](RealProject/email_events_model.md): with some example codes
 6. [Web browsing recommendation engine](RealProject/web_browsing_recommendation.md)
 7. [Signal quality clustering](RealProject/signal_quality.md)
-8. [Other small functional code](RealProject/src)
+8. [Technical notes](RealProject/TechNote)
+    * command line code (linux)
+    * AWS related python setup
+    * log function
+    * python os often used functions
+    * model performance functions
+    * python notes
+    * sql notes
+    * string processing python note
 
 **Project overall covered responsibilities**
 * Project definition setup with different stakeholders

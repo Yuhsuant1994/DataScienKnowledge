@@ -104,8 +104,10 @@ in business we can take 2%)
 size, power of trade off (size would effect the distribution), the bigger of 
 the sample size, the narrower is the distribution.
 
-* alph=P(rejecting null|null true)
-* beta=P(not reject null|null false)
+(in our case null hypothesis is that 2 experiment has no difference)
+
+* alph=P(rejecting null|null true)  type 1 error, false positive
+* beta=P(not reject null|null false)  type 2 error, false negative
 
 small sample: alpha small unlikely to run bad experiment, beta high when null is false, tend to accept (tend to accpet all null)
 
