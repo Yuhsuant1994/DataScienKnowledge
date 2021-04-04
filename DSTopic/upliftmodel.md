@@ -14,8 +14,7 @@ say thanks to our prediction, customer buy more.
 
 ## who are we targeting?
 
-<img src="../img/uplift_seg.png" height="300">
-<img src="../img/uplift_targ.png" height="300">
+<img src="../img/uplift_seg.png" height="300"> <img src="../img/uplift_targ.png" height="300">
 
 *conceptional 2x2 Matrix (Kane, et al., 2014)*
 
