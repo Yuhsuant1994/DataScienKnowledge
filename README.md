@@ -12,6 +12,7 @@
 6. [DSTopic](DSTopic)
    * [Uplift model](DSTopic/upliftmodel.md)
    * (TBD) imbalanced data
+   * compute retention rate
 
 # Projects
 
