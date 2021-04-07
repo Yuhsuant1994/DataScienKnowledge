@@ -5,13 +5,14 @@
 3. [AB testing](ABTesting)
 4. [DataEngineer](DataEngineer)
    * [elasticsearch](DataEngineer/elasticsearch.md)
-5. [DSConcept](DSConcept)
-   * (TBD) recall precision
+5. [DecisionTree](DecisionTree)
+6. [DSConcept](DSConcept)
+   * [recall precision](DSConcept/recall_precision.md)
    * (TBD) activation functions (softmax for multiple class probability)
-
-6. [DSTopic](DSTopic)
+7. [DSTopic](DSTopic)
    * [Uplift model](DSTopic/upliftmodel.md)
-   * (TBD) imbalanced data
+   * [imbalanced data](DSTopic/imbalance_data.md)
+   * (TBD)[retainModel](DSTopic/retrain_model.md)
    * compute retention rate
 
 # Projects
