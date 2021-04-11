@@ -8,12 +8,13 @@
 5. [DecisionTree](DecisionTree)
 6. [DSConcept](DSConcept)
    * [recall precision](DSConcept/recall_precision.md)
+   * (TBD) [Gradient Descent](DSConcept/GradientDescent.md)
    * (TBD) activation functions (softmax for multiple class probability)
 7. [DSTopic](DSTopic)
    * [Uplift model](DSTopic/upliftmodel.md)
    * [imbalanced data](DSTopic/imbalance_data.md)
    * (TBD)[retainModel](DSTopic/retrain_model.md)
-   * compute retention rate
+   * [compute retention rate](DSTopic/retention_rate.ipynb)
 
 # Projects
 

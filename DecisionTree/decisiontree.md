@@ -29,7 +29,7 @@ and it allows users to choose between `gini` or `entropy`.
 overall speaking, gini is faster while entropy is more complex might have
 better result.
 
-* gini impurity: how diverse is this dataset. (the frequency at which 
+* **gini impurity**: how diverse is this dataset. (the frequency at which 
 any element of the dataset will be mislabelled when it is randomly labeled.)
 (we can also see it as the prob that randomly pick 2 element from the data 
 set the elements are different)
@@ -37,14 +37,14 @@ the optimum split is chosen by the features with less Gini Index
 
 [simple video explain gini impurity](https://www.youtube.com/watch?v=u4IxOk2ijSs)
 
-* Entropy impurity: compute the entropy value for each node and sum them all up.
+* **Entropy**: compute the entropy value for each node and sum them all up.
 in the node level we only know if this split is pure or not
 range between 0 to 1 (0 it's pure, 1 is worse that it is half/half)
 
 [Single node entropy video explanation](https://www.youtube.com/watch?v=1IQOtJ4NI_0)
 [information gain](https://www.youtube.com/watch?v=FuTRucXB9rA)
 
-then we compute the information gain
+then we compute the **information gain**
 `Gain(S,A)=E(S)-SUM((|Sv|/|S|)*E(Sv)) `
 we can see it as the Entropy of the node minus the sum of the 
 Entropy subnode (percentage weighted), therefore the higher of the entropy the better.
@@ -52,22 +52,3 @@ Entropy subnode (percentage weighted), therefore the higher of the entropy the b
 
 [continue with the video](https://www.youtube.com/watch?v=5aIFgrrTqOw&list=PLZoTAELRMXVPBTrWtJkn3wWQxZkmTXGwe&index=52)
 
-# 1.2 Decision Tree Ensembles
-
-[Decision Tree Ensembles- Bagging and Boosting](https://towardsdatascience.com/decision-tree-ensembles-bagging-and-boosting-266a8ba60fd9)
-
-* **Bagging (Bootstrap Aggregation)** is used when our goal is to reduce the variance of a 
-decision tree. Here idea is to create several subsets of data from training sample chosen r
-andomly **with replacement**. Now, each collection of subset data is used to train their 
-decision trees. As a result, we end up with an ensemble of different models. 
-**Average of all the predictions** from different trees are used which is more robust than 
-a single decision tree.
-
-(**Random Forest** is an extension over bagging. It takes one extra step where in addition 
-to taking the random subset of data, it also takes the **random selection of features** rather 
-than using all features to grow trees. When you have many random trees. It’s called Random Forest)
-
-* **Boosting** is another ensemble technique to create a collection of predictors. In this technique, 
-learners are learned sequentially with early learners fitting simple models to the data and then 
-analyzing data for errors. In other words, we fit consecutive trees (random sample) and at every 
-step, the goal is to solve for net error from the prior tree.

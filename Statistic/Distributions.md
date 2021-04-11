@@ -41,7 +41,7 @@ P(5;2) = (e^-2^)(2^5^)/5! = 0.036
 measure the probability of success or failure outcome with experiments 
 repeates several times. (N number of time, p success rate)
 
-P(X) = (N!) / (x!(N-x)!) * pi^x^ * (1-pi)^N-x^
+<img src="https://i.stack.imgur.com/MwwW6.png" height="300">
 
 the distribution µ is the p for success, and std is `sqrt((P(1-P))/N)`
 
