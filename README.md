@@ -1,21 +1,3 @@
-# DS Topic:
-
-1. [NLP](NLP)
-2. [REGRESSION](REGRESSION)
-3. [AB testing](ABTesting)
-4. [DataEngineer](DataEngineer)
-   * [elasticsearch](DataEngineer/elasticsearch.md)
-5. [DecisionTree](DecisionTree)
-6. [DSConcept](DSConcept)
-   * [recall precision](DSConcept/recall_precision.md)
-   * (TBD) [Gradient Descent](DSConcept/GradientDescent.md)
-   * (TBD) activation functions (softmax for multiple class probability)
-7. [DSTopic](DSTopic)
-   * [Uplift model](DSTopic/upliftmodel.md)
-   * [imbalanced data](DSTopic/imbalance_data.md)
-   * (TBD)[retainModel](DSTopic/retrain_model.md)
-   * [compute retention rate](DSTopic/retention_rate.ipynb)
-
 # Projects
 
 ## Real projects and Related Knowledge 
@@ -48,6 +30,28 @@
 * Code automation, cross team testing, production
 * Continuous observation / feedback improvement cycle (Cross functional communication with different teams)
 
+# DS Topic:
+
+1. [NLP](NLP)
+2. [REGRESSION](REGRESSION)
+3. [AB testing](ABTesting)
+4. [DataEngineer](DataEngineer)
+   * [elasticsearch](DataEngineer/elasticsearch.md)
+5. [DecisionTree](DecisionTree)
+    * TBD adaboost, decision tree boosting tree / comparison/ random forest
+    * [EnsembleModel](DecisionTree/EnsembleModel.md)
+    * (TBF)[DecisionTree](DecisionTree/decisiontree.md)
+6. [Clustering](Clustering)
+    * (TBF) Kmean [(implementation with ElbowMethed)](Clustering/ElbowMethod.ipynb)
+7. [DSConcept](DSConcept)
+   * [recall precision](DSConcept/recall_precision.md)
+   * (TBD) [Gradient Descent](DSConcept/GradientDescent.md)
+   * (TBD) activation functions (softmax for multiple class probability)
+8. [DSTopic](DSTopic)
+   * [Uplift model](DSTopic/upliftmodel.md)
+   * [imbalanced data](DSTopic/imbalance_data.md)
+   * (TBD)[retainModel](DSTopic/retrain_model.md)
+   * [compute retention rate](DSTopic/retention_rate.ipynb)
 
 
 # Learning ources

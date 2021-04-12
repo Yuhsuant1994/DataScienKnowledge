@@ -19,9 +19,9 @@ Boosted Regression Trees is using regression trees while following boosting algo
 Classification and Regression Tree 
 
 
-## 1.1 impurity function
+## 1.1 Find best split
 
-how do we select the right feature to split for that node? mesure the impurity of the split
+how do we select the right feature to split for that node? **find best split**
 
 `criterion`: This parameter is the function used to measure the quality of a split 
 and it allows users to choose between `gini` or `entropy`.
@@ -29,7 +29,9 @@ and it allows users to choose between `gini` or `entropy`.
 overall speaking, gini is faster while entropy is more complex might have
 better result.
 
-* **gini impurity**: how diverse is this dataset. (the frequency at which 
+* **gini impurity**: 
+ 
+how diverse is this dataset. (the frequency at which 
 any element of the dataset will be mislabelled when it is randomly labeled.)
 (we can also see it as the prob that randomly pick 2 element from the data 
 set the elements are different)
@@ -37,9 +39,11 @@ the optimum split is chosen by the features with less Gini Index
 
 [simple video explain gini impurity](https://www.youtube.com/watch?v=u4IxOk2ijSs)
 
-* **Entropy**: compute the entropy value for each node and sum them all up.
+* **Entropy**: 
+
+compute the entropy value for each node and sum them all up.
 in the node level we only know if this split is pure or not
-range between 0 to 1 (0 it's pure, 1 is worse that it is half/half)
+range between 0 to 1 (0 it's pure, 1 is worse that it is half/half label)
 
 [Single node entropy video explanation](https://www.youtube.com/watch?v=1IQOtJ4NI_0)
 [information gain](https://www.youtube.com/watch?v=FuTRucXB9rA)
