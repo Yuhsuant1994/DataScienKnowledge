@@ -18,4 +18,4 @@ def strip_accents(text):
     text = text.encode('ascii', 'ignore')
     text = text.decode("utf-8")
     return str(text)
-#print(strip_accents('êoçé'))
+#print(strip_accents(''))

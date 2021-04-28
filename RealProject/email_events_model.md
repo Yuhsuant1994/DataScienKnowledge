@@ -15,7 +15,7 @@ TECHNOLOGY USED: Python, RESTful API, Redshift
 
 **Step 1: get event from hotspot**
 
-Hubspot we are extracting data with RESTful API
+Hubspot we are extracting data with RESTful API in json format
 
 <details>
   <summary>Click to see the exemple code...</summary>

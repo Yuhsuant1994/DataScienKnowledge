@@ -37,6 +37,7 @@
 3. [AB testing](ABTesting)
 4. [DataEngineer](DataEngineer)
    * [elasticsearch](DataEngineer/elasticsearch.md)
+   * [web scraping: beautiful soup](DataEngineer/beautifulsoup.ipynb)
 5. [DecisionTree](DecisionTree)
     * TBD adaboost, decision tree boosting tree / comparison/ random forest
     * [EnsembleModel](DecisionTree/EnsembleModel.md)
@@ -52,6 +53,7 @@
    * [imbalanced data](DSTopic/imbalance_data.md)
    * (TBD)[retainModel](DSTopic/retrain_model.md)
    * [compute retention rate](DSTopic/retention_rate.ipynb)
+   * TBD modeling performance tracking (confusion matrix, shap)
 
 
 # Learning ources
