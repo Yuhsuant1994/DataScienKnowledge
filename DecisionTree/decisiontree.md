@@ -51,7 +51,7 @@ range between 0 to 1 (0 it's pure, 1 is worse that it is half/half label)
 then we compute the **information gain**
 `Gain(S,A)=E(S)-SUM((|Sv|/|S|)*E(Sv)) `
 we can see it as the Entropy of the node minus the sum of the 
-Entropy subnode (percentage weighted), therefore the higher of the entropy the better.
+Entropy subnode (percentage weighted), therefore the higher of the better.
 
 
 [continue with the video](https://www.youtube.com/watch?v=5aIFgrrTqOw&list=PLZoTAELRMXVPBTrWtJkn3wWQxZkmTXGwe&index=52)

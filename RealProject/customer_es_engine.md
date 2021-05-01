@@ -6,6 +6,8 @@ leads to known leads. Therefore some automation process can be set up immidiatel
 
 Then create a data model for project performance dashboard creation.
 
+First step was built on EC2 virtual machine, then move to AWS athena and elasticsearch service.
+
 PAIN POINT: unknown leads is always hard to track and to contact, identifing 
 them could take up to one full day or even more for one employee to do 
 the manual search.
@@ -13,7 +15,7 @@ the manual search.
 IMPACT: Reduce work hour of one salesperson from **one day to 8s**. 
 A **start point** for the company to start treating the “unknown leads.”
 
-TECHNOLOGY USED: Python, Elastic Search, Redshift
+TECHNOLOGY USED: Python, ElasticSearch, Redshift, AWS, Athena
 
 # 2. Process and tech note
 

@@ -21,9 +21,13 @@ git checkout (change branch)
 
 `python3 run.py`, `cd ..`
 
+## check storage
+
 ## find file
 
 `find -name *.git*`
+
+`find . -name *.git*`
 
 `find -name *.log -delete`: dangerous delete all find file
 
