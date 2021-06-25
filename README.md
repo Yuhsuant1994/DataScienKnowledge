@@ -49,6 +49,7 @@
    * (TBD) [Gradient Descent](DSConcept/GradientDescent.md)
    * (TBD) activation functions (softmax for multiple class probability)
 8. [DSTopic](DSTopic)
+   * (TBF)[Recommendation engine Collaborative filtering](https://realpython.com/build-recommendation-engine-collaborative-filtering/)
    * [Uplift model](DSTopic/upliftmodel.md)
    * [imbalanced data](DSTopic/imbalance_data.md)
    * (TBD)[retainModel](DSTopic/retrain_model.md)
