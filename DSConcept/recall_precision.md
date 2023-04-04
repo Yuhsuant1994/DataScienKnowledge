@@ -5,9 +5,9 @@ which one to focus on depending on what's the cost of false positive and
 false negative.
 
 * **Precision**: out of all the predicted positive how many of them is predicted true positive, 
-reduce false positive. (when we predict it's positive it's not)
+we improve precision meaning reduce false positive. (we don't want when we predict it's positive it's not) we don't want to predict positive when it's actually not. like in the pharmacie, medication sector.
 * **Recall**: out of all the real positive how many of them is predicted true positive.
-reduce false negative (when we predict it's negative it's not)
+when we improve recall we try to reduce false negative (we don't want when we predict it's negative it's actually not) like in the fraud project.
 * **F1 Score**: the weighted average of precision and recall. (take both matric into consideration)
 
 
