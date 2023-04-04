@@ -11,4 +11,7 @@ when we improve recall we try to reduce false negative (we don't want when we pr
 * **F1 Score**: the weighted average of precision and recall. (take both matric into consideration)
 
 
+Precision is a good measure to determine when the cost of false positives is high. E.g. — email spam detection. Recall- When there is a high cost associated with false negatives. E.g. — fraud detection or sick patient detection.
+
+
 [ref: Precision vs Recall](https://medium.com/@shrutisaxena0617/precision-vs-recall-386cf9f89488)
