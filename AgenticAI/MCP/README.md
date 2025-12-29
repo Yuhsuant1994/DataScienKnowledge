@@ -58,10 +58,7 @@ python main.py
 
 ### Configuring with Claude Desktop
 
-Add to your Claude Desktop config file:
-
-**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+Add to your Claude Desktop config file: `~/Library/Application Support/Claude/claude_desktop_config.json`
 
 ```json
 {
@@ -94,20 +91,6 @@ Add to your Claude Desktop config file:
 - "Find coordinates for Paris"
 - "Search for London, UK"
 
-## API Details
-
-### Open-Meteo Weather API
-- **Free**: No API key required
-- **Rate limit**: Generous free tier
-- **Data**: Current weather + 7-day forecast
-- **Coverage**: Global
-
-### NewsAPI.org
-- **Free tier**: 100 requests/day
-- **Developer tier**: More requests available
-- **Data**: News from 80,000+ sources
-- **Note**: Without API key, limited functionality
-
 ## Tools Reference
 
 ### get_weather
@@ -121,7 +104,7 @@ Add to your Claude Desktop config file:
 ### get_news
 ```json
 {
-  "query": "climate change",  // Optional: search term
+  "query": "climate change",  
   "category": "technology",   // Optional: category filter
   "country": "us",           // Optional: country code
   "page_size": 10            // Optional: number of results
@@ -134,28 +117,3 @@ Add to your Claude Desktop config file:
   "location": "Tokyo, Japan"
 }
 ```
-
-## Development
-
-The server uses the MCP SDK with stdio transport. It's designed to work with Claude Desktop or any MCP-compatible client.
-
-### Project Structure
-- `main.py`: Main server implementation
-- `requirements.txt`: Python dependencies
-- `README.md`: Documentation
-
-## Troubleshooting
-
-**NewsAPI not working?**
-- Check if NEWSAPI_KEY environment variable is set
-- Verify your API key at https://newsapi.org/
-- Free tier has limitations (100 req/day, 1-month history)
-
-**Weather API errors?**
-- Open-Meteo requires no API key
-- Check internet connectivity
-- Verify coordinates are valid (-90 to 90 lat, -180 to 180 lon)
-
-## License
-
-This project is for educational purposes. Please respect the API providers' terms of service.
