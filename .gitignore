@@ -1,3 +1,5 @@
 *.vs*
 */.ipynb_checkpoints/*
 .env
+*.csv
+*.pyc
