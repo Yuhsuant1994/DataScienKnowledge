@@ -205,7 +205,7 @@ def format_weather_response(weather_data: dict[str, Any], location_info: dict[st
         result.append(f"Location: {location_info.get('name')}, {location_info.get('country')}")
         result.append(f"Coordinates: {location_info.get('latitude'):.4f}°, {location_info.get('longitude'):.4f}°\n")
 
-    result.append("🌤️  CURRENT WEATHER")
+    result.append("CURRENT WEATHER")
     result.append(f"Temperature: {current.get('temperature_2m')}°C (feels like {current.get('apparent_temperature')}°C)")
     result.append(f"Conditions: {weather_codes.get(current.get('weather_code'), 'Unknown')}")
     result.append(f"Humidity: {current.get('relative_humidity_2m')}%")
@@ -220,7 +220,7 @@ def format_weather_response(weather_data: dict[str, Any], location_info: dict[st
         precip = daily["precipitation_sum"][i]
 
         result.append(f"{date}: {weather_codes.get(weather_code, 'Unknown')}")
-        result.append(f"  🌡️  {temp_min}°C - {temp_max}°C | 💧 {precip}mm")
+        result.append(f"    {temp_min}°C - {temp_max}°C |  {precip}mm")
 
     return "\n".join(result)
 
