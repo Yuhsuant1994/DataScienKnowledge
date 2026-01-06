@@ -12,3 +12,4 @@ uvicorn
 tavily-python
 structlog
 ujson
+mcp

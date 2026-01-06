@@ -3,10 +3,10 @@ import os
 from app.api.api import api_router
 from app.log import default_logger as logger
 from app.tools.lifetime import (
-    init_arxiv_wrapper,
     init_llm_with_tool,
-    init_tavily_wrapper,
-    init_wikipedia_wrapper,
+    init_mcp_client,
+    init_search_graph,
+    init_tools,
 )
 from dotenv import load_dotenv
 
@@ -40,10 +40,10 @@ def get_app() -> FastAPI:
         This function uses fastAPI app to store data
         in the state, such as db_engine.
         """
-        await init_arxiv_wrapper(app)
-        await init_wikipedia_wrapper(app)
-        await init_tavily_wrapper(app)
+        await init_tools(app)
         await init_llm_with_tool(app)
+        await init_search_graph(app)
+        await init_mcp_client(app)
 
     # Include your API router
     app.include_router(api_router, prefix="/api")

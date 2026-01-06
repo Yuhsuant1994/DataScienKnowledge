@@ -15,6 +15,10 @@ async def health_check(request: Request):
             "tavily": hasattr(app.state, "tavily") and app.state.tavily is not None,
             "llm_with_tool": hasattr(app.state, "llm_with_tool")
             and app.state.llm_with_tool is not None,
+            "search_graph": hasattr(app.state, "search_graph")
+            and app.state.search_graph is not None,
+            "mcp_client": hasattr(app.state, "mcp_client")
+            and app.state.mcp_client is not None,
         },
     }
     all_healthy = all(health_status["components"].values())
