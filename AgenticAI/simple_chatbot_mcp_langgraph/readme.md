@@ -134,11 +134,12 @@ graph TD
 
 | Feature | `/search` | `/search_graph` | `/search_mcp` | Hybrid *(concept)* |
 |---------|-----------|----------------|---------------|-------------------|
-| Tool execution | ❌ None | ✅ Automatic | ✅ Manual | ✅ Automatic |
+| Tool orchestration | ❌ None | ✅ Automatic (ToolNode) | ⚠️ Manual (custom code) | ✅ Automatic (ToolNode) |
 | Looping | ❌ No | ✅ Yes | ❌ No | ✅ Yes |
-| MCP tools | ❌ No | ❌ No | ✅ Yes | ✅ Yes |
-| SQL tools | ❌ No | ✅ Direct | ✅ Direct | ✅ Direct |
-| Best for | Simple | Complex workflows | MCP demo | Production |
+| SQL execution | ❌ No | ✅ Direct (code) | ✅ Direct (code) | ✅ Direct (code) |
+| MCP subprocess | ❌ No | ❌ No | ✅ Yes (manual call) | ✅ Yes (via ToolNode) |
+| API tools (arxiv, wiki, tavily) | ❌ No | ✅ Direct (code) | ✅ MCP subprocess | ✅ MCP subprocess |
+| Best for | Demo | Complex workflows | MCP demo | Production |
 
 ---
 
