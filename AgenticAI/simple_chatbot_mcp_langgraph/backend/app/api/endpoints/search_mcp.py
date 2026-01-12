@@ -103,6 +103,29 @@ Example: "How many sales records and what is the weather in Taipei?" → call qu
 
         # Execute tool calls if any
         if hasattr(ai_message, "tool_calls") and ai_message.tool_calls:
+            import asyncio
+
+            # Helper functions for parallel execution
+            async def execute_sql_task(query):
+                try:
+                    return db_manager.execute_query(query)
+                except Exception as e:
+                    logger.error(f"Error executing SQL: {e}")
+                    return f"Error - {str(e)}"
+
+            async def execute_mcp_task(mcp_name, args):
+                try:
+                    logger.info(f"Calling MCP tool: {mcp_name}")
+                    return await mcp_client.call_tool(mcp_name, args)
+                except Exception as e:
+                    logger.error(f"Error executing MCP tool {mcp_name}: {e}")
+                    return f"Error - {str(e)}"
+
+            # Separate SQL and MCP tool calls for parallel execution
+            sql_tasks = []
+            mcp_tasks = []
+            task_metadata = []  # Track which task corresponds to which tool
+
             for tool_call in ai_message.tool_calls:
                 tool_name = tool_call["name"]
                 tool_args = tool_call["args"]
@@ -126,12 +149,9 @@ Example: "How many sales records and what is the weather in Taipei?" → call qu
                         sql_query = tool_args.get("sql_query", "")
                         tools_used.append({"tool": tool_name, "ai_gen_query": sql_query})
 
-                        try:
-                            result = db_manager.execute_query(sql_query)
-                            tool_results.append(f"**SQL Query Results**:\n{result}")
-                        except Exception as e:
-                            logger.error(f"Error executing SQL: {e}")
-                            tool_results.append(f"**SQL Query**: Error - {str(e)}")
+                        # Add SQL task for parallel execution
+                        sql_tasks.append(execute_sql_task(sql_query))
+                        task_metadata.append(("sql", tool_name, sql_query))
                     else:
                         tool_results.append("**SQL Query**: Database not available")
 
@@ -151,16 +171,23 @@ Example: "How many sales records and what is the weather in Taipei?" → call qu
                     # Track the tool usage
                     tools_used.append({"tool": tool_name, "ai_gen_query": query_arg})
 
-                    # Execute the tool via MCP server
-                    try:
-                        logger.info(f"Calling MCP tool: {mcp_tool_name}")
-                        result = await mcp_client.call_tool(
-                            mcp_tool_name, {"query": query_arg}
-                        )
+                    # Add MCP task for parallel execution
+                    mcp_tasks.append(execute_mcp_task(mcp_tool_name, {"query": query_arg}))
+                    task_metadata.append(("mcp", tool_name, query_arg))
+
+            # Execute all tasks in parallel
+            all_tasks = sql_tasks + mcp_tasks
+            if all_tasks:
+                logger.info(f"Executing {len(all_tasks)} tools in parallel ({len(sql_tasks)} SQL, {len(mcp_tasks)} MCP)")
+                results = await asyncio.gather(*all_tasks)
+
+                # Format results with proper labels
+                for i, result in enumerate(results):
+                    task_type, tool_name, query = task_metadata[i]
+                    if task_type == "sql":
+                        tool_results.append(f"**SQL Query Results**:\n{result}")
+                    else:  # mcp
                         tool_results.append(f"**{tool_name}** (via MCP):\n{result}")
-                    except Exception as e:
-                        logger.error(f"Error executing MCP tool {mcp_tool_name}: {e}")
-                        tool_results.append(f"**{tool_name}** (via MCP): Error - {str(e)}")
 
             # Second LLM call with tool results to generate final response
             if tool_results:

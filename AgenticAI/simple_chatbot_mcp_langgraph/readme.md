@@ -45,12 +45,11 @@ Automatic tool execution with looping via LangGraph's ToolNode.
 graph TD
     START([User Query]) --> LLM[LLM Node<br/>Rewrite queries]
     LLM -->|Has tool calls?| CONDITION{Condition}
-    CONDITION -->|Yes| TOOLS[ToolNode<br/>AUTOMATIC execution]
+    CONDITION -->|Yes| TOOLS[ToolNode<br/>AUTO: extract, find, execute, format]
     CONDITION -->|No| END([Final Answer])
-    TOOLS --> AUTOLOOP[Auto extracts tool_calls<br/>Auto finds matching tools<br/>Auto executes ALL tools<br/>Auto formats results]
 
-    AUTOLOOP --> SQL[SQL Direct<br/>executed automatically]
-    AUTOLOOP --> API[APIs Direct<br/>executed automatically]
+    TOOLS --> SQL[SQL Direct<br/>auto-triggered by ToolNode]
+    TOOLS --> API[APIs Direct<br/>auto-triggered by ToolNode]
 
     SQL --> TOOLS
     API --> TOOLS
@@ -58,20 +57,14 @@ graph TD
 
     style LLM fill:#FFD700
     style TOOLS fill:#DDA0DD
-    style AUTOLOOP fill:#E6E6FA
     style SQL fill:#90EE90
     style API fill:#FFB6C1
 ```
 
 **Features:**
-- ✅ Automatic tool execution & looping via `ToolNode(tools)` - ONE LINE
+- ✅ Automatic tool execution & looping via ToolNode
 - ✅ All tools direct execution (SQL, ArXiv, Wikipedia, Tavily)
 - ✅ LangGraph handles iteration logic automatically
-
-**Code:** Just one line for tool execution!
-```python
-builder.add_node("tools", ToolNode(app.state.tools))  # That's it!
-```
 
 **Use case:** Complex multi-step queries with full automation
 
@@ -79,65 +72,42 @@ builder.add_node("tools", ToolNode(app.state.tools))  # That's it!
 
 ## 3. `/search_mcp` - Single-Pass with MCP
 
-Manual execution with MANUAL loop, MCP subprocess for some tools.
+Manual execution loop, MCP subprocess for some tools.
 
 ```mermaid
 graph TD
     START([User Query]) --> LLM1[LLM Call 1<br/>Decide tools]
-    LLM1 --> MANUAL[MANUAL for loop<br/>60+ lines of code]
+    LLM1 --> MANUAL[MANUAL for loop<br/>extract, check, map, execute, collect]
 
-    MANUAL --> EXTRACT[Manually extract tool_calls]
-    EXTRACT --> CHECK{Check each<br/>tool name}
+    MANUAL -->|Collect SQL tasks| SQL[SQL Direct<br/>YOU call db_manager.execute_query]
+    MANUAL -->|Collect MCP tasks| MCP[MCP Subprocess<br/>YOU call mcp_client.call_tool]
 
-    CHECK -->|SQL tool| SQL[SQL Direct<br/>manually execute<br/>db_manager.execute_query]
-    CHECK -->|MCP tool| MCPMAP[Manually map tool names<br/>arxiv → arxiv<br/>tavily_search_results_json → tavily_search]
+    SQL --> PARALLEL[asyncio.gather<br/>Execute all in parallel]
+    MCP --> PARALLEL
 
-    MCPMAP --> MCP[MCP Subprocess<br/>await mcp_client.call_tool]
+    PARALLEL --> MERGE[Merge Results]
 
-    SQL --> COLLECT[Manually collect results<br/>tool_results.append]
-    MCP --> COLLECT
-
-    COLLECT --> MERGE[Manually merge results]
     MERGE --> LLM2[LLM Call 2<br/>Synthesize answer]
     LLM2 --> END([Final Answer])
 
     style LLM1 fill:#FFD700
     style LLM2 fill:#FFD700
     style MANUAL fill:#FFA07A
-    style EXTRACT fill:#FFA07A
-    style CHECK fill:#FFA07A
-    style COLLECT fill:#FFA07A
+    style PARALLEL fill:#87CEEB
     style SQL fill:#90EE90
-    style MCPMAP fill:#FFB6C1
     style MCP fill:#FFB6C1
 ```
 
 **Features:**
-- ⚠️ Manual tool orchestration (60+ lines of custom loop code)
+- ⚠️ Manual tool orchestration - custom loop code
 - ✅ MCP subprocess (arxiv, wikipedia, tavily) - isolated execution
 - ✅ SQL direct execution - fast local execution
+- ✅ **Parallel tool execution** - all tools run simultaneously via asyncio.gather()
 - ❌ No automatic looping (single-pass only)
 - ⚠️ Requires manual tool name mapping
 - ⚠️ Requires manual result collection
 
-**Code:** Manual loop for tool execution
-```python
-# You write this manually (search_mcp.py lines 105-164):
-if hasattr(ai_message, "tool_calls") and ai_message.tool_calls:
-    for tool_call in ai_message.tool_calls:  # Manual loop
-        tool_name = tool_call["name"]
-        tool_args = tool_call["args"]
-
-        if tool_name == "query_sales_database_impl":
-            result = db_manager.execute_query(sql_query)  # Manual SQL
-        else:
-            mcp_tool_name = mcp_tool_name_map.get(tool_name)  # Manual mapping
-            result = await mcp_client.call_tool(mcp_tool_name, args)  # Manual MCP
-
-        tool_results.append(result)  # Manual collection
-```
-
-**Use case:** Demonstrating MCP protocol with fine-grained control
+**Use case:** Demonstrating MCP protocol with fine-grained control and parallel execution
 
 ---
 
@@ -176,12 +146,12 @@ graph TD
 
 | Feature | `/search` | `/search_graph` | `/search_mcp` | Hybrid *(concept)* |
 |---------|-----------|----------------|---------------|-------------------|
-| Tool orchestration | ❌ None | ✅ **Automatic** (ToolNode) 1 line | ⚠️ **Manual** (custom code) 60+ lines | ✅ Automatic (ToolNode) |
+| Tool orchestration | ❌ None | ✅ **Automatic** (ToolNode) | ⚠️ **Manual** (custom loop) | ✅ Automatic (ToolNode) |
 | Looping | ❌ No | ✅ Yes (automatic) | ❌ No (single-pass) | ✅ Yes (automatic) |
-| Tool execution logic | ❌ No | ✅ Hidden in ToolNode | ⚠️ **Visible** (you write it) | ✅ Hidden in ToolNode |
-| SQL execution | ❌ No | ✅ Direct (auto) | ✅ Direct (manual) | ✅ Direct (code) |
-| MCP subprocess | ❌ No | ❌ No | ✅ Yes (manual call) | ✅ Yes (via ToolNode) |
-| API tools (arxiv, wiki, tavily) | ❌ No | ✅ Direct (auto) | ✅ MCP subprocess (manual) | ✅ MCP subprocess |
+| Tool execution triggering | ❌ No | ✅ **Auto-triggered** by ToolNode | ⚠️ **Manual-triggered** (YOU call) | ✅ Auto-triggered |
+| SQL execution | ❌ No | ✅ Direct (ToolNode calls it) | ✅ Direct (YOU call it) | ✅ Direct |
+| MCP subprocess | ❌ No | ❌ No | ✅ Yes (YOU call it) | ✅ Yes (ToolNode calls it) |
+| API tools (arxiv, wiki, tavily) | ❌ No | ✅ Direct (ToolNode calls) | ✅ MCP subprocess (YOU call) | ✅ MCP subprocess |
 | Code complexity | Low | **Very Low** (abstracted) | **High** (explicit) | Very Low |
 | Fine-grained control | ❌ No | ❌ No | ✅ **Yes** (full control) | ❌ No |
 | Best for | Demo | Complex workflows | **MCP demo & custom logic** | Production |
