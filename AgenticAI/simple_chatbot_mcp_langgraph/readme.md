@@ -4,6 +4,15 @@ Three approaches to building an AI chatbot with tool calling: simple LLM, LangGr
 
 ---
 
+## most simple workflow
+```mermaid
+graph TD
+    START([User Query]) --> LLM[LLM]
+    LLM --> END([Response])
+    style LLM fill:#FFD700
+```
+
+
 ## 1. `/search` - Simple LLM Query
 
 No tool execution, just LLM response.
