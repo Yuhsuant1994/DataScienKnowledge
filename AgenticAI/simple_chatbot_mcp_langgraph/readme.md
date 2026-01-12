@@ -178,7 +178,7 @@ This combines the strengths of both architectures:
 
 **From MCP:**
 - Process isolation (tools can crash safely)
-- ersion delegation to protocol providers
+- Version delegation to protocol providers
 
 **Combined Benefits:**
 - ✅ Best of both: iteration + isolation
