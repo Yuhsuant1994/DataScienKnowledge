@@ -79,8 +79,8 @@ graph TD
     START([User Query]) --> LLM1[LLM Call 1<br/>Decide tools]
     LLM1 --> MANUAL[MANUAL for loop<br/>extract, check, map, execute, collect]
 
-    MANUAL -->|Collect SQL tasks| SQL[SQL Direct<br/>YOU call db_manager.execute_query]
-    MANUAL -->|Collect MCP tasks| MCP[MCP Subprocess<br/>YOU call mcp_client.call_tool]
+    MANUAL -->|Collect SQL tasks| SQL[SQL Direct<br/>Code call db_manager.execute_query]
+    MANUAL -->|Collect MCP tasks| MCP[MCP Subprocess<br/>Code call mcp_client.call_tool]
 
     SQL --> PARALLEL[asyncio.gather<br/>Execute all in parallel]
     MCP --> PARALLEL
@@ -148,9 +148,9 @@ graph TD
 |---------|-----------|----------------|---------------|-------------------|
 | Tool orchestration | ❌ None | ✅ **Automatic** (ToolNode) | ⚠️ **Manual** (custom loop) | ✅ Automatic (ToolNode) |
 | Looping | ❌ No | ✅ Yes (automatic) | ❌ No (single-pass) | ✅ Yes (automatic) |
-| Tool execution triggering (API / SQL) | ❌ No | ✅ **Auto-triggered** by ToolNode | ⚠️ **Manual-triggered** (YOU call) | ✅ Auto-triggered |
-| MCP subprocess | ❌ No | ❌ No | ✅ Yes (YOU call it) | ✅ Yes (ToolNode calls it) |
-| API tools (arxiv, wiki, tavily) | ❌ No | ✅ Direct (ToolNode calls) | ✅ MCP subprocess (YOU call) | ✅ MCP subprocess |
+| Tool execution triggering (API / SQL) | ❌ No | ✅ **Auto-triggered** by ToolNode | ⚠️ **Manual-triggered** (Code call) | ✅ Auto-triggered |
+| MCP subprocess | ❌ No | ❌ No | ✅ Yes (Code call it) | ✅ Yes (ToolNode calls it) |
+| API tools (arxiv, wiki, tavily) | ❌ No | ✅ Direct (ToolNode calls) | ✅ MCP subprocess (Code call) | ✅ MCP subprocess |
 | Best for | Demo | Complex workflows | **MCP demo & custom logic** | Production |
 
 ---
