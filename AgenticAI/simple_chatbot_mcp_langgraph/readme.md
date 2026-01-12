@@ -148,12 +148,9 @@ graph TD
 |---------|-----------|----------------|---------------|-------------------|
 | Tool orchestration | ❌ None | ✅ **Automatic** (ToolNode) | ⚠️ **Manual** (custom loop) | ✅ Automatic (ToolNode) |
 | Looping | ❌ No | ✅ Yes (automatic) | ❌ No (single-pass) | ✅ Yes (automatic) |
-| Tool execution triggering | ❌ No | ✅ **Auto-triggered** by ToolNode | ⚠️ **Manual-triggered** (YOU call) | ✅ Auto-triggered |
-| SQL execution | ❌ No | ✅ Direct (ToolNode calls it) | ✅ Direct (YOU call it) | ✅ Direct |
+| Tool execution triggering (API / SQL) | ❌ No | ✅ **Auto-triggered** by ToolNode | ⚠️ **Manual-triggered** (YOU call) | ✅ Auto-triggered |
 | MCP subprocess | ❌ No | ❌ No | ✅ Yes (YOU call it) | ✅ Yes (ToolNode calls it) |
 | API tools (arxiv, wiki, tavily) | ❌ No | ✅ Direct (ToolNode calls) | ✅ MCP subprocess (YOU call) | ✅ MCP subprocess |
-| Code complexity | Low | **Very Low** (abstracted) | **High** (explicit) | Very Low |
-| Fine-grained control | ❌ No | ❌ No | ✅ **Yes** (full control) | ❌ No |
 | Best for | Demo | Complex workflows | **MCP demo & custom logic** | Production |
 
 ---
