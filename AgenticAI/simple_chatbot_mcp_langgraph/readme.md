@@ -83,14 +83,15 @@ graph TD
     MANUAL -->|Collect MCP tasks| MCP[MCP Subprocess<br/>Code call mcp_client.call_tool]
 
     SQL --> PARALLEL[asyncio.gather<br/>Execute all in parallel]
-    MCP --> MERGE
+    MCP --> PARALLEL
 
-    MERGE --> LLM2[LLM Call 2<br/>Synthesize answer]
+    PARALLEL --> LLM2[LLM Call 2<br/>Synthesize answer]
     LLM2 --> END([Final Answer])
 
     style LLM1 fill:#FFD700
     style LLM2 fill:#FFD700
     style MANUAL fill:#FFA07A
+    style PARALLEL fill:#87CEEB
     style SQL fill:#90EE90
     style MCP fill:#FFB6C1
 ```
