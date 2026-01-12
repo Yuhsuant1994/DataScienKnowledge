@@ -115,17 +115,17 @@ Combines automatic iteration with MCP isolation.
 
 ```mermaid
 graph TD
-    START([User Query]) --> LLM[LLM<br/>Rewrite queries]
-    LLM --> TOOLS[Tool Node<br/>Execute all tools]
+    START([User Query]) --> LLM[LLM Node<br/>Rewrite queries]
+    LLM -->|Has tool calls?| CONDITION{Condition}
+    CONDITION -->|Yes| TOOLS[ToolNode<br/>AUTO: extract, find, execute, format]
+    CONDITION -->|No| END([Final Answer])
 
-    TOOLS --> SQL[SQL Direct]
-    TOOLS --> MCP[MCP Subprocess<br/>ArXiv, Wikipedia, Tavily]
+    TOOLS --> SQL[SQL Direct<br/>auto-triggered by ToolNode]
+    TOOLS --> MCP[MCP Subprocess<br/>auto-triggered by ToolNode<br/>ArXiv, Wikipedia, Tavily]
 
-    SQL --> RESULTS[Results]
-    MCP --> RESULTS
-
-    RESULTS --> LLM
-    LLM --> END([Final Answer])
+    SQL --> TOOLS
+    MCP --> TOOLS
+    TOOLS --> LLM
 
     style LLM fill:#FFD700
     style TOOLS fill:#DDA0DD
@@ -134,9 +134,10 @@ graph TD
 ```
 
 **Why this is ideal:**
-- ✅ LangGraph automatic iteration
-- ✅ SQL direct (fast)
-- ✅ MCP subprocess (isolated)
+- ✅ LangGraph automatic iteration & looping
+- ✅ SQL direct execution (fast, auto-triggered)
+- ✅ MCP subprocess (isolated, auto-triggered)
+- ✅ ToolNode handles all orchestration automatically
 
 ---
 
