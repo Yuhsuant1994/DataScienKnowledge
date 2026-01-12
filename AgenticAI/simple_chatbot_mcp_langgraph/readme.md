@@ -15,16 +15,25 @@ graph TD
 
 ## 1. `/search` - Simple LLM Query
 
-No tool execution, just LLM response.
+LLM has tools bound but doesn't execute them - returns raw response.
 
 ```mermaid
 graph TD
-    START([User Query]) --> LLM[LLM]
-    LLM --> END([Response])
+    START([User Query]) --> LLM[LLM with Tools Bound<br/>llm_with_tool.invoke]
+    LLM -->|May generate tool calls| RESP[Raw Response Returned<br/>Tool calls NOT executed]
+    RESP --> END([Response may contain<br/>unexecuted tool call requests])
+
     style LLM fill:#FFD700
+    style RESP fill:#FFA07A
+    style END fill:#FFA07A
 ```
 
-**Use case:** Quick responses without tools
+**Features:**
+- ❌ Tools bound but never executed
+- ❌ No tool result synthesis
+- ⚠️ Response may contain tool call requests as text
+
+**Use case:** Demo of non-functional tool binding
 
 ---
 
