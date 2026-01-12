@@ -55,10 +55,23 @@ async def get_graph_response(
             # Check if it's an AI message with tool calls
             if hasattr(message, "tool_calls") and message.tool_calls:
                 for tool_call in message.tool_calls:
+                    tool_name = tool_call.get("name", "")
+
+                    # Log all tool calls for debugging
+                    logger.info(f"Tool called: {tool_name}")
+
+                    # Skip internal schema lookup tool from user display
+                    if tool_name == "get_database_schema_impl":
+                        continue
+
+                    # Extract query/sql_query depending on the tool
+                    args = tool_call.get("args", {})
+                    query_text = args.get("query", "") or args.get("sql_query", "") or str(args)
+
                     tools_used.append(
                         {
-                            "tool": tool_call["name"],
-                            "ai_gen_query": tool_call["args"].get("query", ""),
+                            "tool": tool_name,
+                            "ai_gen_query": query_text,
                         }
                     )
 

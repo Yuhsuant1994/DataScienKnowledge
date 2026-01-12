@@ -6,7 +6,7 @@ import requests
 import streamlit as st
 
 # Configure the page
-st.set_page_config(page_title="AI Search Chatbot (MCP)", page_icon="🔧", layout="wide")
+st.set_page_config(page_title="AI Search Chatbot (MCP)", page_icon="", layout="wide")
 
 # API endpoint (use environment variable if available, otherwise localhost)
 API_URL = os.getenv("API_URL", "http://localhost:8001/api/search_mcp")
@@ -25,7 +25,7 @@ if "response_times" not in st.session_state:
 with st.sidebar:
     st.title("⚙️ Configuration")
 
-    st.subheader("🔧 Architecture")
+    st.subheader("Architecture")
     st.success("**Approach:** MCP (Model Context Protocol)")
     st.info(
         """
@@ -41,12 +41,12 @@ with st.sidebar:
     st.info("**Model:** qwen/qwen3-32b")
     st.write("**Provider:** Groq")
 
-    st.subheader("🔧 Available Tools")
+    st.subheader("Available Tools")
     st.markdown(
         """
-    - **📚 ArXiv** - Query academic papers
-    - **📖 Wikipedia** - Query Wikipedia articles
-    - **🔍 Tavily Search** - Web search for current info
+    - ** ArXiv** - Query academic papers
+    - **Wikipedia** - Query Wikipedia articles
+    - ** Tavily Search** - Web search for current info
     """
     )
 
@@ -60,7 +60,7 @@ with st.sidebar:
         st.rerun()
 
 # Main chat interface
-st.title("🔧 AI Search Chatbot (MCP)")
+st.title("AI Search Chatbot (MCP)")
 st.markdown(
     """
 Ask me anything! I can search ArXiv papers, Wikipedia, and the web.
@@ -85,17 +85,17 @@ for idx, message in enumerate(st.session_state.messages):
 
             tools = st.session_state.tool_references[idx]
             if tools:
-                with st.expander("📚 References & Tools Used", expanded=False):
+                with st.expander(" References & Tools Used", expanded=False):
                     for i, tool in enumerate(tools, 1):
                         tool_name = tool.get("tool", "Unknown")
                         query = tool.get("ai_gen_query", "")
 
                         # Format tool name with icons
                         tool_icon = {
-                            "arxiv": "📚",
-                            "wikipedia": "📖",
-                            "tavily_search_results_json": "🔍",
-                        }.get(tool_name, "🔧")
+                            "arxiv": "",
+                            "wikipedia": "",
+                            "tavily_search_results_json": "",
+                        }.get(tool_name, "")
 
                         st.markdown(
                             f"**{i}. {tool_icon} {tool_name.replace('_', ' ').title()}**"
@@ -142,17 +142,17 @@ if prompt := st.chat_input("Type your message here..."):
 
                 # Display tool references
                 if tools_used:
-                    with st.expander("📚 References & Tools Used", expanded=True):
+                    with st.expander(" References & Tools Used", expanded=True):
                         for i, tool in enumerate(tools_used, 1):
                             tool_name = tool.get("tool", "Unknown")
                             query = tool.get("ai_gen_query", "")
 
                             # Format tool name with icons
                             tool_icon = {
-                                "arxiv": "📚",
-                                "wikipedia": "📖",
-                                "tavily_search_results_json": "🔍",
-                            }.get(tool_name, "🔧")
+                                "arxiv": "",
+                                "wikipedia": "",
+                                "tavily_search_results_json": "",
+                            }.get(tool_name, "")
 
                             st.markdown(
                                 f"**{i}. {tool_icon} {tool_name.replace('_', ' ').title()}**"

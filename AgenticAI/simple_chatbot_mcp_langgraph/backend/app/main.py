@@ -3,6 +3,8 @@ import os
 from app.api.api import api_router
 from app.log import default_logger as logger
 from app.tools.lifetime import (
+    init_database,
+    init_db_schema,
     init_llm_with_tool,
     init_mcp_client,
     init_search_graph,
@@ -41,6 +43,8 @@ def get_app() -> FastAPI:
         in the state, such as db_engine.
         """
         await init_tools(app)
+        await init_database(app)  # Initialize database before LLM tools
+        await init_db_schema(app)  # Pre-fetch and cache database schema
         await init_llm_with_tool(app)
         await init_search_graph(app)
         await init_mcp_client(app)

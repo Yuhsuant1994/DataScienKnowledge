@@ -21,59 +21,146 @@ async def get_mcp_response(
     ),
 ):
     """
-    TRUE MCP endpoint: Uses MCP protocol to communicate with MCP server.
+    MCP endpoint with SQL tools: Single-pass execution with MCP + SQL database tools.
 
     This endpoint demonstrates:
-    - FastAPI spawns MCP server as subprocess
-    - Communicates via MCP protocol (stdio)
-    - Tools are executed via MCP server
-    - Single-pass execution (no iterative loops)
+    - MCP tools (arxiv, wikipedia, tavily) executed via MCP protocol subprocess
+    - SQL tools executed directly against the database
+    - LLM decides which tools to use in a single pass
+    - Combines results from both MCP and SQL tools
     """
     try:
-        # Get the LLM and MCP client
+        # Get dependencies from app state
         llm_with_tool = request.app.state.llm_with_tool
         mcp_client = request.app.state.mcp_client
+        db_manager = request.app.state.db_manager
 
         # Get available tools from MCP server
         mcp_tools = await mcp_client.list_tools()
         logger.info(f"MCP server has {len(mcp_tools)} tools available")
 
-        # First LLM call to determine which tools to use
-        ai_message = llm_with_tool.invoke(query)
+        # Check if database is available
+        has_database = db_manager is not None
+        # Get pre-fetched schema from app state (cached at startup)
+        db_schema = getattr(request.app.state, "db_schema", None)
+
+        if has_database:
+            logger.info("SQL database tools available")
+            if db_schema:
+                logger.info("Using cached database schema from app.state")
+            else:
+                logger.warning("Database available but schema not cached")
+
+        # Create comprehensive system prompt
+        system_prompt = """You are a helpful assistant with access to multiple tools.
+
+Available tools via MCP protocol:
+1. **arxiv**: Search ArXiv for academic papers and research
+2. **wikipedia**: Search Wikipedia for general knowledge and encyclopedia content
+3. **tavily_search**: Search the web for current information, news, weather, and real-time data"""
+
+        if has_database and db_schema:
+            system_prompt += f"""
+
+Available SQL database tools:
+4. **query_sales_database_impl**: Execute SQL queries on sales database
+
+DATABASE SCHEMA (already fetched for you):
+{db_schema}
+
+Use this schema to write SQL queries directly. Common queries:
+- Count records: SELECT COUNT(*) FROM table_name
+- Join tables: SELECT * FROM sales_order so JOIN order_details od ON so.order_id = od.order_id"""
+
+        system_prompt += """
+
+INSTRUCTIONS:
+- If question is about research/papers: use arxiv
+- If question is about general knowledge: use wikipedia
+- If question is about current events/weather/news: use tavily_search"""
+
+        if has_database:
+            system_prompt += """
+- If question is about sales data (customers, orders, products, revenue, purchases, etc.):
+  1. Write SQL query using the provided schema
+  2. Call query_sales_database_impl() with your SQL query
+  3. Return actual data, NOT just SQL suggestions"""
+
+        system_prompt += """
+
+- If MULTIPLE questions: call ALL necessary tools
+- Always EXECUTE tools, don't just describe what you would do
+
+Example: "How many sales records and what is the weather in Taipei?" → call query_sales_database_impl AND tavily_search."""
+
+        # First LLM call with system prompt to determine which tools to use
+        full_query = f"{system_prompt}\n\nUser question: {query}"
+        ai_message = llm_with_tool.invoke(full_query)
 
         # Track tools used
         tools_used = []
         tool_results = []
 
-        # Execute tool calls via MCP if any
+        # Execute tool calls if any
         if hasattr(ai_message, "tool_calls") and ai_message.tool_calls:
             for tool_call in ai_message.tool_calls:
                 tool_name = tool_call["name"]
                 tool_args = tool_call["args"]
-                query_arg = tool_args.get("query", "")
 
-                # Map LangChain tool names to MCP tool names
-                mcp_tool_name_map = {
-                    "arxiv": "arxiv",
-                    "wikipedia": "wikipedia",
-                    "tavily_search_results_json": "tavily_search",
-                }
+                logger.info(f"Tool called: {tool_name} with args: {tool_args}")
 
-                mcp_tool_name = mcp_tool_name_map.get(tool_name, tool_name)
+                # Handle SQL tools (executed directly)
+                if tool_name == "get_database_schema_impl":
+                    if has_database:
+                        try:
+                            result = db_manager.get_schema_info()
+                            tool_results.append(f"**Database Schema**:\n{result}")
+                            # Don't show schema tool in UI
+                        except Exception as e:
+                            logger.error(f"Error getting schema: {e}")
+                            tool_results.append(f"**Database Schema**: Error - {str(e)}")
+                    continue  # Skip adding to tools_used (internal tool)
 
-                # Track the tool usage
-                tools_used.append({"tool": tool_name, "ai_gen_query": query_arg})
+                elif tool_name == "query_sales_database_impl":
+                    if has_database:
+                        sql_query = tool_args.get("sql_query", "")
+                        tools_used.append({"tool": tool_name, "ai_gen_query": sql_query})
 
-                # Execute the tool via MCP server
-                try:
-                    logger.info(f"Calling MCP tool: {mcp_tool_name}")
-                    result = await mcp_client.call_tool(
-                        mcp_tool_name, {"query": query_arg}
-                    )
-                    tool_results.append(f"**{tool_name}** (via MCP): {result}")
-                except Exception as e:
-                    logger.error(f"Error executing MCP tool {mcp_tool_name}: {e}")
-                    tool_results.append(f"**{tool_name}** (via MCP): Error - {str(e)}")
+                        try:
+                            result = db_manager.execute_query(sql_query)
+                            tool_results.append(f"**SQL Query Results**:\n{result}")
+                        except Exception as e:
+                            logger.error(f"Error executing SQL: {e}")
+                            tool_results.append(f"**SQL Query**: Error - {str(e)}")
+                    else:
+                        tool_results.append("**SQL Query**: Database not available")
+
+                # Handle MCP tools (executed via MCP protocol)
+                else:
+                    query_arg = tool_args.get("query", "")
+
+                    # Map LangChain tool names to MCP tool names
+                    mcp_tool_name_map = {
+                        "arxiv": "arxiv",
+                        "wikipedia": "wikipedia",
+                        "tavily_search_results_json": "tavily_search",
+                    }
+
+                    mcp_tool_name = mcp_tool_name_map.get(tool_name, tool_name)
+
+                    # Track the tool usage
+                    tools_used.append({"tool": tool_name, "ai_gen_query": query_arg})
+
+                    # Execute the tool via MCP server
+                    try:
+                        logger.info(f"Calling MCP tool: {mcp_tool_name}")
+                        result = await mcp_client.call_tool(
+                            mcp_tool_name, {"query": query_arg}
+                        )
+                        tool_results.append(f"**{tool_name}** (via MCP):\n{result}")
+                    except Exception as e:
+                        logger.error(f"Error executing MCP tool {mcp_tool_name}: {e}")
+                        tool_results.append(f"**{tool_name}** (via MCP): Error - {str(e)}")
 
             # Second LLM call with tool results to generate final response
             if tool_results:

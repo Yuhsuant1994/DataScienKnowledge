@@ -13,3 +13,5 @@ tavily-python
 structlog
 ujson
 mcp
+sqlalchemy
+psycopg2-binary
